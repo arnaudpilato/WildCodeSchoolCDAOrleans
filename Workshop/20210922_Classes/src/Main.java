@@ -58,6 +58,7 @@ public class Main {
         bird.scream();
         bird.getNbPaw();
         bird.move();
+        bird.egg();
     }
 
     public static void fish(String name) {
@@ -65,6 +66,7 @@ public class Main {
         System.out.println("Je m'appelle " + fish.getName());
         fish.scream();
         fish.move();
+        fish.egg();
     }
 
     public static void dolphin(String name) {
@@ -79,5 +81,6 @@ public class Main {
         System.out.println("Je m'appelle " + snake.getName());
         snake.scream();
         snake.move();
+        snake.egg();
     }
 }

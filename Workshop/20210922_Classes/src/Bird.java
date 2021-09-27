@@ -7,6 +7,11 @@ public class Bird extends Animal {
         System.out.println("J'ai 2 pattes");
     }
 
+    public void egg() {
+        Egg egg = new Egg();
+        System.out.println("Je pond des oeufs");
+    }
+
     @Override
     public void scream() {
         System.out.println("Je chante");

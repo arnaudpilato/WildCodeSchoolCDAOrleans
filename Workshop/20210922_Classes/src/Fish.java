@@ -3,6 +3,11 @@ public class Fish extends Animal {
         super(name);
     }
 
+    public void egg() {
+        Egg egg = new Egg();
+        System.out.println("Je pond des oeufs");
+    }
+
     @Override
     public void scream() {
         System.out.println("Je blop");
