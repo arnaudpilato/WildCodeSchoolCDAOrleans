@@ -34,6 +34,15 @@ public class TimeController implements ActionListener {
     board = new PhysicalController();
     // Lucky luke because for the moment he is a poor lonesome
     // player
+
+    String[] team = new String[2];
+    for (int i = 0; i <2; i++) {
+      Scanner askTeam = new Scanner(System.in);
+      System.out.println("Veuillez choisir le nom de l'équipe " + (i + 1));
+      team[i] = askTeam.nextLine();
+    }
+
+
     Player luckyLuke = createPlayer("Lucky Luke", Color.RED);
 
     for (String name : new String[] {"Joly jumper", "rantanplan"}) {
