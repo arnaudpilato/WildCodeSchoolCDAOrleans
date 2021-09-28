@@ -1,0 +1,4 @@
+NRO 2021-09-27 : le code est très propre pour les conventions de nommage / indentation /
+ organisation.
+Après la consigne "minimum de méthode" devait amener à faire des classes intermédiaires
+(par exemple celle des animaux avec des pattes)

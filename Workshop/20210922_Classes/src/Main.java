@@ -18,6 +18,7 @@ public class Main {
 
         int animalType = choice.nextInt();
 
+        // NRO 2021-09-27 : les switch sont rarement un bon design
         switch (animalType) {
             case 1 -> horse(animalName);
             case 2 -> dog(animalName);
@@ -29,6 +30,9 @@ public class Main {
         }
     }
 
+    // NRO 2021-09-27 : Don't Repeat Yourself, ici seul le new est spécifique,
+    // tout le reste peut aller dans une (max deux fonctions) qui prennent
+    // en argument un animal 
     public static void horse(String name) {
         Horse horse = new Horse(name);
         System.out.println("Je m'appelle " + horse.getName());
