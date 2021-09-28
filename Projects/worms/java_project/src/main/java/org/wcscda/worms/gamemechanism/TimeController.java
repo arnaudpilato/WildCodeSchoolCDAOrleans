@@ -57,6 +57,7 @@ public class TimeController implements ActionListener {
         }
 
         Random random = new Random();
+
         int j = 0;
         Player[] playerName = new Player[numberOfTeams];
         Worm[] wormsName = new Worm[numberOfWorms];
@@ -72,12 +73,8 @@ public class TimeController implements ActionListener {
             String[] worms = entry.getValue();
 
             playerName[j] = createPlayer(player, randomColor);
-            System.out.println(playerName[j].getName());
-
-            System.out.println(player);
             for (int i=0; i < worms.length; i++) {
                 wormsName[i] = playerName[j].createWorm(worms[i]);
-                System.out.print(worms[i] + " ");
                 board.wormInitialPlacement(wormsName[i]);
             }
             j++;
