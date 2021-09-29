@@ -26,7 +26,11 @@ public class Score extends AbstractDrawableElement {
             g.setColor(Color.GREEN);
             g.drawString(player.getName() + " :", (int) x, (int) y );
             for (Worm worm : player.getWorms()) {
+                g.setColor(Color.GREEN);
                 g.drawString(worm.getName(), (int) x, (int) y + line );
+                if (worm.getLife() <= 20) {
+                    g.setColor(Color.ORANGE);
+                }
                 g.drawString("HP/" + worm.getLife(), (int) x + 70, (int) y + line );
                 line += 20;
             }
