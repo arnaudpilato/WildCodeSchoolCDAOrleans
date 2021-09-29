@@ -13,6 +13,14 @@ public class Worm extends ARBEWithGravity {
   private static final String leftFacingResource = "src/resources/WormLF.png";
   private static final String rightFacingResource = "src/resources/WormRF.png";
 
+  public int getLife() {
+    return life;
+  }
+
+  public void setLife(int life) {
+    this.life = life;
+  }
+
   private static final int imageHeight = 60;
   private static final int imageWidth = 54;
   private static final int rectPadding = 15;
