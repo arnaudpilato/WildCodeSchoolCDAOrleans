@@ -86,6 +86,7 @@ public class Worm extends ARBEWithGravity {
       die();
     }
     return isUserMoving;
+
   }
 
   public void setUserMoving(boolean isUserMoving) {

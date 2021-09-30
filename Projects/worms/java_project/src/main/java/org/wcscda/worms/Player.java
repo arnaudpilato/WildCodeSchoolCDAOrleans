@@ -3,6 +3,7 @@ package org.wcscda.worms;
 import java.awt.Color;
 import java.util.ArrayList;
 import org.wcscda.worms.board.weapons.AbstractWeapon;
+import org.wcscda.worms.board.weapons.Grenade;
 import org.wcscda.worms.board.weapons.Hadoken;
 import org.wcscda.worms.board.weapons.Shotgun;
 
@@ -63,6 +64,6 @@ public class Player {
   }
 
   public void initWeapon() {
-    currentWeapon = new Hadoken();
+    currentWeapon = new Grenade();
   }
 }
