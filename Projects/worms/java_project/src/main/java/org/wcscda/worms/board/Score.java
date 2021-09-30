@@ -5,9 +5,21 @@ import org.wcscda.worms.Worm;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Score extends AbstractDrawableElement {
     private Player[] players;
+    private Map<String, Integer[]> dies;
+
+    public Map<String, Integer[]> getDies() {
+        return dies;
+    }
+
+    public void setDies(Map<String, Integer[]> dies) {
+        this.dies = dies;
+    }
 
     public Player[] getPlayers() {
         return players;

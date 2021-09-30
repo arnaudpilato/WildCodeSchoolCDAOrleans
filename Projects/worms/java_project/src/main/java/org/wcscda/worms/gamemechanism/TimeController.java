@@ -81,13 +81,6 @@ public class TimeController implements ActionListener {
             j++;
         }
 
-        /*Player luckyLuke = createPlayer("Lucky Luke", Color.RED);
-
-        for (String name : new String[] {"Joly jumper", "rantanplan"}) {
-            Worm worm = luckyLuke.createWorm(name);
-            board.wormInitialPlacement(worm);
-        }*/
-
         setNextWorm();
 
         Score score = new Score();

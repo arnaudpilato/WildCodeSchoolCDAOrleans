@@ -69,6 +69,7 @@ public class Worm extends ARBEWithGravity {
 
     // Drawing the life
     g.setColor(player.getColor());
+    g.drawString(name, (int) getX(), (int) getY() - 30);
     g.drawString("" + life, (int) getX(), (int) getY() - 15);
   }
 
