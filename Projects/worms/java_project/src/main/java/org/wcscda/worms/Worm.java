@@ -27,6 +27,7 @@ public class Worm extends ARBEWithGravity {
 
   private static Image wormLF = null;
   private static Image wormRF = null;
+  private int shownLife = 100;
   private int life = 100;
   private final String name;
   private final Player player;
@@ -53,11 +54,11 @@ public class Worm extends ARBEWithGravity {
   }
 
   private static int getRandomStartingX() {
-    return RandomGenerator.getInstance().nextInt(Board.getB_WIDTH() - imageWidth);
+    return RandomGenerator.getInstance().nextInt(Board.getBWIDTH() - imageWidth);
   }
 
   private static int getRandomStartingY() {
-    return RandomGenerator.getInstance().nextInt(Board.getB_HEIGHT() - imageHeight);
+    return RandomGenerator.getInstance().nextInt(Board.getBHEIGHT() - imageHeight);
   }
 
   @Override
@@ -70,7 +71,16 @@ public class Worm extends ARBEWithGravity {
     // Drawing the life
     g.setColor(player.getColor());
     g.drawString(name, (int) getX(), (int) getY() - 30);
-    g.drawString("" + life, (int) getX(), (int) getY() - 15);
+    g.drawString("" + getShownLife(), (int) getX(), (int) getY() - 15);
+  }
+
+  private int getShownLife() {
+    if (life < shownLife) {
+      shownLife--;
+    } else if (life > shownLife) {
+      shownLife++;
+    }
+    return this.shownLife;
   }
 
   private boolean isRightFacing() {
@@ -82,11 +92,10 @@ public class Worm extends ARBEWithGravity {
   }
 
   public boolean isUserMoving() {
-    if ((Helper.getWormX() < 0) || (Helper.getWormX() > Board.getB_WIDTH())) {
+    if ((Helper.getWormX() < 0) || (Helper.getWormX() > Board.getBWIDTH())) {
       die();
     }
     return isUserMoving;
-
   }
 
   public void setUserMoving(boolean isUserMoving) {
