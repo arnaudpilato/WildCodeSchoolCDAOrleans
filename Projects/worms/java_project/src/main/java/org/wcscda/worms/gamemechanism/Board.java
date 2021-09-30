@@ -3,7 +3,6 @@ package org.wcscda.worms.gamemechanism;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.board.*;
 import org.wcscda.worms.gamemechanism.events.EndOfTurnEvent;
@@ -22,6 +21,7 @@ public abstract class Board extends JPanel {
   public Board() {
     initBoard();
   }
+
   private void initBoard() {
     setBackground(Color.BLACK);
     setFocusable(true);
@@ -58,6 +58,8 @@ public abstract class Board extends JPanel {
     new EndOfTurnEvent(Helper.getClock());
   }
 
+  /* NRO : TODO-Student : choose when to decide the game is finished
+   */
   private boolean isGameFinished() {
     return false;
   }
