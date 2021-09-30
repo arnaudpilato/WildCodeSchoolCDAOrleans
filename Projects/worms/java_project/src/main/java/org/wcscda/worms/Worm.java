@@ -70,23 +70,17 @@ public class Worm extends ARBEWithGravity {
 
     // Drawing the life
     g.setColor(player.getColor());
-<<<<<<< HEAD:Projects/worms/java_project/src/main/java/org/wcscda/worms/Worm.java
+    g.drawString(name, (int) getX(), (int) getY() - 30);
     g.drawString("" + getShownLife(), (int) getX(), (int) getY() - 15);
   }
 
   private int getShownLife() {
-
     if (life < shownLife) {
       shownLife--;
     } else if (life > shownLife) {
       shownLife++;
     }
-
     return this.shownLife;
-=======
-    g.drawString(name, (int) getX(), (int) getY() - 30);
-    g.drawString("" + life, (int) getX(), (int) getY() - 15);
->>>>>>> 42510209e454a490ec3f049f228baa92f3dd20ce:Projects/worms/java_project/src/main/java/org/wcscda/worms/board/Worm.java
   }
 
   private boolean isRightFacing() {
@@ -98,11 +92,10 @@ public class Worm extends ARBEWithGravity {
   }
 
   public boolean isUserMoving() {
-    if ((Helper.getWormX() < 0) || (Helper.getWormX() > Board.getB_WIDTH())) {
+    if ((Helper.getWormX() < 0) || (Helper.getWormX() > Board.getBWIDTH())) {
       die();
     }
     return isUserMoving;
-
   }
 
   public void setUserMoving(boolean isUserMoving) {
