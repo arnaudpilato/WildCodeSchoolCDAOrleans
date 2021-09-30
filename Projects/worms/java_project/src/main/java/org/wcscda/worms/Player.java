@@ -18,8 +18,6 @@ public class Player {
     this.color = color;
   }
 
-
-
   public String getName() {
     return name;
   }
