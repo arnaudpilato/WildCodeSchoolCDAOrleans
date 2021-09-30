@@ -3,15 +3,10 @@ package org.wcscda.worms.gamemechanism;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import org.wcscda.worms.Helper;
 import org.wcscda.worms.board.*;
-import org.wcscda.worms.gamemechanism.events.EndOfTurnEvent;
-import org.wcscda.worms.gamemechanism.phases.EndOfGamePhase;
 
 public abstract class Board extends JPanel {
 
-  /* NRO 2021-09-30 : Asked by JPanel */
   private static final long serialVersionUID = 1L;
 
   private static final int BOARD_WIDTH = 1200;
@@ -22,6 +17,7 @@ public abstract class Board extends JPanel {
   public Board() {
     initBoard();
   }
+
   private void initBoard() {
     setBackground(Color.BLACK);
     setFocusable(true);
@@ -46,29 +42,22 @@ public abstract class Board extends JPanel {
     Toolkit.getDefaultToolkit().sync();
   }
 
-  public void actionPerformed(ActionEvent e) {
-    if (isGameFinished()) {
-      Helper.getTC().setCurrentPhase(new EndOfGamePhase());
-    }
+  public boolean actionPerformed(ActionEvent e) {
     repaint();
     doMoves();
 
     AbstractDrawableElement.processToBeRemovedAndAdded();
 
-    new EndOfTurnEvent(Helper.getClock());
-  }
-
-  private boolean isGameFinished() {
-    return false;
+    return true;
   }
 
   protected abstract void doMoves();
 
-  public static int getBWIDTH() {
+  public static int getB_WIDTH() {
     return BOARD_WIDTH;
   }
 
-  public static int getBHEIGHT() {
+  public static int getB_HEIGHT() {
     return BOARD_HEIGHT;
   }
 

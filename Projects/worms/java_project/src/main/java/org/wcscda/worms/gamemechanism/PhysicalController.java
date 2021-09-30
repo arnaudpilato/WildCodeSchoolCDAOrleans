@@ -7,7 +7,6 @@ import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.ARBEWithGravity;
 import org.wcscda.worms.board.AbstractMovable;
 import org.wcscda.worms.board.IMovableVisitor;
-import org.wcscda.worms.board.weapons.Explosion;
 
 /** @author nicolas */
 public class PhysicalController extends Board implements IMovableVisitor {
@@ -125,7 +124,5 @@ public class PhysicalController extends Board implements IMovableVisitor {
                 movable.takeDamage(explosionDamage);
               }
             });
-
-    new Explosion(centerX, centerY, explosionRadius);
   }
 }
