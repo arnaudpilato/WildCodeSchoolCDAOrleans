@@ -21,7 +21,6 @@ public abstract class Board extends JPanel {
   public Board() {
     initBoard();
   }
-
   private void initBoard() {
     setBackground(Color.BLACK);
     setFocusable(true);
@@ -46,7 +45,7 @@ public abstract class Board extends JPanel {
     Toolkit.getDefaultToolkit().sync();
   }
 
-  public void actionPerformed(ActionEvent e) {
+  public boolean actionPerformed(ActionEvent e) {
     if (isGameFinished()) {
       Helper.getTC().setCurrentPhase(new EndOfGamePhase());
     }
@@ -56,6 +55,7 @@ public abstract class Board extends JPanel {
     AbstractDrawableElement.processToBeRemovedAndAdded();
 
     new EndOfTurnEvent(Helper.getClock());
+    return false;
   }
 
   /* NRO : TODO-Student : choose when to decide the game is finished

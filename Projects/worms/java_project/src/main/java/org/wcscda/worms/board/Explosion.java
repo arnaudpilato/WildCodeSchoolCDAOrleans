@@ -27,8 +27,8 @@ public class Explosion extends AbstractDrawableElement {
   @Override
   protected void drawMain(Graphics2D g, ImageObserver io) {
     Shape explosion =
-        DrawHelper.getCircle(
-            centerX, centerY, (int) (radius * (0.1 + getLifeTime() * 0.9 / LIFE_DURATION)));
+            DrawHelper.getCircle(
+                    centerX, centerY, (int) (radius * (0.1 + getLifeTime() * 0.9 / LIFE_DURATION)));
     g.setColor(Color.RED);
     g.fill(explosion);
 

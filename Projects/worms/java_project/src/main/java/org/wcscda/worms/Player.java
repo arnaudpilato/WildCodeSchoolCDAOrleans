@@ -3,6 +3,7 @@ package org.wcscda.worms;
 import java.awt.Color;
 import java.util.ArrayList;
 import org.wcscda.worms.board.weapons.AbstractWeapon;
+import org.wcscda.worms.board.weapons.Grenade;
 import org.wcscda.worms.board.weapons.Hadoken;
 import org.wcscda.worms.board.weapons.Shotgun;
 
@@ -50,10 +51,13 @@ public class Player {
     currentWormIndex %= worms.size();
   }
 
+<<<<<<< HEAD
   /* NRO 2021-09-30 : TODO-student make a better version of
    * this, this is just a temporary version :-)
    * This should call the inventory, and handle
    */
+=======
+>>>>>>> 42510209e454a490ec3f049f228baa92f3dd20ce
   public void changeWeapon() {
     if (currentWeapon.isChangingWeaponDisabled()) {
       return;
@@ -67,6 +71,10 @@ public class Player {
   }
 
   public void initWeapon() {
+<<<<<<< HEAD
     currentWeapon = new Hadoken();
+=======
+    currentWeapon = new Grenade();
+>>>>>>> 42510209e454a490ec3f049f228baa92f3dd20ce
   }
 }
