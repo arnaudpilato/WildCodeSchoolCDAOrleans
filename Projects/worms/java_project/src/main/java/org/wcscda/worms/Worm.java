@@ -82,6 +82,9 @@ public class Worm extends ARBEWithGravity {
   }
 
   public boolean isUserMoving() {
+    if ((Helper.getWormX() < 0) || (Helper.getWormX() > Board.getB_WIDTH())) {
+      die();
+    }
     return isUserMoving;
   }
 
