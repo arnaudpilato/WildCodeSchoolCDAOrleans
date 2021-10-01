@@ -144,7 +144,5 @@ public class PhysicalController extends Board implements IMovableVisitor {
                 movable.takeDamage(explosionDamage);
               }
             });
-
-    new Explosion(centerX, centerY, explosionRadius);
   }
 }

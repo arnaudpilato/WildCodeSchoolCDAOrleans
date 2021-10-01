@@ -13,117 +13,117 @@ import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
 
 public class TimeController implements ActionListener {
-  private static TimeController instance;
-  private PhysicalController board;
-  private Timer timer;
-  private ArrayList<Player> players = new ArrayList<Player>();
-  private int activePlayerIndex = 0;
-  private AbstractPhase currentPhase;
-  private int phaseCount = 0;
-  private boolean delayedSetNextWorm;
+    private static TimeController instance;
+    private PhysicalController board;
+    private Timer timer;
+    private ArrayList<Player> players = new ArrayList<Player>();
+    private int activePlayerIndex = 0;
+    private AbstractPhase currentPhase;
+    private int phaseCount = 0;
+    private boolean delayedSetNextWorm;
 
-  public TimeController() {
-    instance = this;
-    initGame();
+    public TimeController() {
+        instance = this;
+        initGame();
 
-    board.addKeyListener(new KeyboardController());
+        board.addKeyListener(new KeyboardController());
 
-    timer = new Timer(Config.getClockDelay(), this);
-    timer.start();
-  }
-
-  private void initGame() {
-    board = new PhysicalController();
-    // Lucky luke because for the moment he is a poor lonesome
-    // player
-    Player luckyLuke = createPlayer("Lucky Luke", Color.RED);
-
-    for (String name : new String[] {"Joly jumper", "rantanplan"}) {
-      Worm worm = luckyLuke.createWorm(name);
-      board.wormInitialPlacement(worm);
+        timer = new Timer(Config.getClockDelay(), this);
+        timer.start();
     }
 
-    doSetNextWorm();
-  }
+    private void initGame() {
+        board = new PhysicalController();
+        // Lucky luke because for the moment he is a poor lonesome
+        // player
+        Player luckyLuke = createPlayer("Lucky Luke", Color.RED);
 
-  public void setNextWorm() {
-    delayedSetNextWorm = true;
-  }
+        for (String name : new String[] {"Joly jumper", "rantanplan"}) {
+            Worm worm = luckyLuke.createWorm(name);
+            board.wormInitialPlacement(worm);
+        }
 
-  protected void delayedActions() {
-    if (delayedSetNextWorm) {
-      delayedSetNextWorm = false;
-      doSetNextWorm();
-    }
-  }
-
-  protected void doSetNextWorm() {
-    for (int i = 0; i < players.size(); ++i) {
-      activePlayerIndex += 1;
-      activePlayerIndex %= players.size();
-      if (getActivePlayer().hasWorms()) break;
+        doSetNextWorm();
     }
 
-    // No player have any worm, it is sad ...
-    if (!getActivePlayer().hasWorms()) {
-      return;
+    public void setNextWorm() {
+        delayedSetNextWorm = true;
     }
 
-    getActivePlayer().setNextWorm();
-    getActivePlayer().initWeapon();
-
-    AbstractPhase phase = new WormMovingPhase();
-    this.setCurrentPhase(phase);
-  }
-
-  private Player createPlayer(String name, Color color) {
-    Player player = new Player(name, color);
-    players.add(player);
-
-    return player;
-  }
-
-  public Component getBoard() {
-    return board;
-  }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    phaseCount++;
-    board.actionPerformed(e);
-  }
-
-  public static TimeController getInstance() {
-    if (instance == null) {
-      instance = new TimeController();
+    protected void delayedActions() {
+        if (delayedSetNextWorm) {
+            delayedSetNextWorm = false;
+            doSetNextWorm();
+        }
     }
-    return instance;
-  }
 
-  public AbstractPhase getCurrentPhase() {
-    return currentPhase;
-  }
+    protected void doSetNextWorm() {
+        for (int i = 0; i < players.size(); ++i) {
+            activePlayerIndex += 1;
+            activePlayerIndex %= players.size();
+            if (getActivePlayer().hasWorms()) break;
+        }
 
-  public void setCurrentPhase(AbstractPhase currentPhase) {
-    if ((this.currentPhase != null) && this.currentPhase != currentPhase) {
-      this.currentPhase.removeSelf();
+        // No player have any worm, it is sad ...
+        if (!getActivePlayer().hasWorms()) {
+            return;
+        }
+
+        getActivePlayer().setNextWorm();
+        getActivePlayer().initWeapon();
+
+        AbstractPhase phase = new WormMovingPhase();
+        this.setCurrentPhase(phase);
     }
-    this.currentPhase = currentPhase;
-  }
 
-  public ArrayList<Player> getPlayers() {
-    return players;
-  }
+    private Player createPlayer(String name, Color color) {
+        Player player = new Player(name, color);
+        players.add(player);
 
-  public int getPhaseCount() {
-    return phaseCount;
-  }
+        return player;
+    }
 
-  public void setPhaseCount(int phaseCount) {
-    this.phaseCount = phaseCount;
-  }
+    public Component getBoard() {
+        return board;
+    }
 
-  public Player getActivePlayer() {
-    return players.get(activePlayerIndex);
-  }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        phaseCount++;
+        board.actionPerformed(e);
+    }
+
+    public static TimeController getInstance() {
+        if (instance == null) {
+            instance = new TimeController();
+        }
+        return instance;
+    }
+
+    public AbstractPhase getCurrentPhase() {
+        return currentPhase;
+    }
+
+    public void setCurrentPhase(AbstractPhase currentPhase) {
+        if ((this.currentPhase != null) && this.currentPhase != currentPhase) {
+            this.currentPhase.removeSelf();
+        }
+        this.currentPhase = currentPhase;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public int getPhaseCount() {
+        return phaseCount;
+    }
+
+    public void setPhaseCount(int phaseCount) {
+        this.phaseCount = phaseCount;
+    }
+
+    public Player getActivePlayer() {
+        return players.get(activePlayerIndex);
+    }
 }

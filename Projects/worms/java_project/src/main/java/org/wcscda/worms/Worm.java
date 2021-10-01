@@ -15,6 +15,14 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   private static final String leftFacingResource = "src/resources/WormLF.png";
   private static final String rightFacingResource = "src/resources/WormRF.png";
 
+  public int getLife() {
+    return life;
+  }
+
+  public void setLife(int life) {
+    this.life = life;
+  }
+
   private static final int imageHeight = 60;
   private static final int imageWidth = 54;
   private static final int rectPadding = 15;
@@ -64,17 +72,16 @@ public class Worm extends ARBEWithGravity implements IVisitable {
 
     // Drawing the life
     g.setColor(player.getColor());
+    g.drawString(name, (int) getX(), (int) getY() - 30);
     g.drawString("" + getShownLife(), (int) getX(), (int) getY() - 15);
   }
 
   private int getShownLife() {
-
     if (life < shownLife) {
       shownLife--;
     } else if (life > shownLife) {
       shownLife++;
     }
-
     return this.shownLife;
   }
 
@@ -87,6 +94,9 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   }
 
   public boolean isUserMoving() {
+    if ((Helper.getWormX() < 0) || (Helper.getWormX() > Board.getBWIDTH())) {
+      die();
+    }
     return isUserMoving;
   }
 
