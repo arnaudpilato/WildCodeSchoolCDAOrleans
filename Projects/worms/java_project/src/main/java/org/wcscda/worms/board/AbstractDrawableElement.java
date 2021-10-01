@@ -17,6 +17,7 @@ public abstract class AbstractDrawableElement implements Comparable<AbstractDraw
   }
 
   public static void processToBeRemovedAndAdded() {
+    toBeRemoved.forEach(AbstractDrawableElement::onRemoval);
     allDrawable.removeAll(toBeRemoved);
     allDrawable.addAll(toBeAdded);
     toBeRemoved.clear();
@@ -62,6 +63,11 @@ public abstract class AbstractDrawableElement implements Comparable<AbstractDraw
   //  order of the graphical elements
   @Override
   public int compareTo(AbstractDrawableElement o) {
-    return 1000000 * getDepth().compareTo(o.getDepth()) + id.compareTo(o.id);
+    if (getDepth().compareTo(o.getDepth()) != 0) {
+      return getDepth().compareTo(o.getDepth());
+    }
+    return id.compareTo(o.id);
   }
+
+  protected void onRemoval() {}
 }

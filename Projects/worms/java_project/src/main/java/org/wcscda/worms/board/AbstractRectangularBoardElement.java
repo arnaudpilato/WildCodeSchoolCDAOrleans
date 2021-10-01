@@ -42,7 +42,8 @@ public abstract class AbstractRectangularBoardElement extends AbstractMovable {
     return innerRect;
   }
 
-  public boolean isColidingWith(Shape s) {
+  @Override
+  public boolean isCollidingWith(Shape s) {
     return s.intersects(getInnerRect());
   }
 
@@ -55,5 +56,9 @@ public abstract class AbstractRectangularBoardElement extends AbstractMovable {
   protected void drawDebug(Graphics2D g, ImageObserver io) {
     g.setColor(Color.red);
     g.draw(getInnerRect());
+  }
+
+  public double distanceFromPoint(double x, double y) {
+    return Math.sqrt(Math.pow(getCenterX() - x, 2) + Math.pow(getCenterY() - y, 2));
   }
 }
