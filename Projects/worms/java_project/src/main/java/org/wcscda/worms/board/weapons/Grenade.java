@@ -27,7 +27,7 @@ public class Grenade extends AbstractWeapon {
 
         if (getAngle() > Math.PI / 2) {
             AffineTransform trans =
-                    AffineTransform.getTranslateInstance(Helper.getWormX() + 100, Helper.getWormY());
+                    AffineTransform.getTranslateInstance(Helper.getWormX(), Helper.getWormY());
             trans.scale(-1, 1);
 
             g.drawImage(image, trans, io);

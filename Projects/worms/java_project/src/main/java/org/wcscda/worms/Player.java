@@ -43,10 +43,15 @@ public class Player {
   }
 
   public Worm getActiveWorm() {
+    if (getWorms().isEmpty()) {
+      return null;
+    }
     return getWorms().get(currentWormIndex);
   }
 
   public void setNextWorm() {
+    if(worms.isEmpty()) return;
+    
     currentWormIndex += 1;
     currentWormIndex %= worms.size();
   }

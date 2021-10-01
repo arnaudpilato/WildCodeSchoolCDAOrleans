@@ -14,23 +14,24 @@ import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
 
 public class TimeController implements ActionListener {
-    private static TimeController instance;
-    private PhysicalController board;
-    private Timer timer;
-    private ArrayList<Player> players = new ArrayList<Player>();
-    private int activePlayerIndex = 0;
-    private AbstractPhase currentPhase;
-    private int phaseCount = 0;
+  private static TimeController instance;
+  private PhysicalController board;
+  private Timer timer;
+  private ArrayList<Player> players = new ArrayList<Player>();
+  private int activePlayerIndex = 0;
+  private AbstractPhase currentPhase;
+  private int phaseCount = 0;
+  private boolean delayedSetNextWorm;
 
-    public TimeController() {
-        instance = this;
-        initGame();
+  public TimeController() {
+    instance = this;
+    initGame();
 
-        board.addKeyListener(new KeyboardController());
+    board.addKeyListener(new KeyboardController());
 
-        timer = new Timer(Config.getClockDelay(), this);
-        timer.start();
-    }
+    timer = new Timer(Config.getClockDelay(), this);
+    timer.start();
+  }
 
     private void initGame() {
         board = new PhysicalController();
@@ -81,13 +82,24 @@ public class TimeController implements ActionListener {
             j++;
         }
 
-        setNextWorm();
-
         Score score = new Score();
         score.setPlayers(playerName);
-    }
+
+    doSetNextWorm();
+  }
 
     public void setNextWorm() {
+        delayedSetNextWorm = true;
+    }
+
+    protected void delayedActions() {
+        if (delayedSetNextWorm) {
+            delayedSetNextWorm = false;
+            doSetNextWorm();
+        }
+    }
+
+    protected void doSetNextWorm() {
         activePlayerIndex += 1;
         activePlayerIndex %= players.size();
         getActivePlayer().setNextWorm();

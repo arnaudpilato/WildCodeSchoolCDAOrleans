@@ -30,7 +30,7 @@ public class Explosion extends AbstractDrawableElement {
   private static final Image[] image = new Image[11];
   private static void initImages() {
     for (int i = 0; i < imagePath.length; i++) {
-      image[i] = new ImageIcon(imagePath[i]).getImage().getScaledInstance(50, 30, 0);
+      image[i] = new ImageIcon(imagePath[i]).getImage().getScaledInstance(250, 192, 0);
     }
   }
 
@@ -48,7 +48,7 @@ public class Explosion extends AbstractDrawableElement {
 
   @Override
   protected void drawMain(Graphics2D g, ImageObserver io) {
-    if (image == null) {
+    if (image[0] == null) {
       initImages();
     }
     /*Shape explosion =
@@ -59,10 +59,8 @@ public class Explosion extends AbstractDrawableElement {
             AffineTransform.getTranslateInstance(centerX, centerY);
     //trans.scale(-1, 1);
     assert image != null;
-    for (Image explosion : image) {
-      g.drawImage(explosion, trans, io);
-    }
 
+    g.drawImage(image[(Helper.getClock()) % image.length], (int)centerX, (int)centerY, io);
     g.setColor(Color.RED);
     //g.fill(explosion);
 
