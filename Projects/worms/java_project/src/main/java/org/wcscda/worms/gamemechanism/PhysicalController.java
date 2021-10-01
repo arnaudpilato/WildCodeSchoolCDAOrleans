@@ -112,7 +112,7 @@ public class PhysicalController extends Board implements IMovableVisitor {
     // You don't need to understand that for the moment.
     // I am looking for the first object that colide with ab
     Optional<AbstractMovable> oam =
-        AbstractMovable.getAllMovable().filter(movable -> ab.isCollidingWith(movable)).findFirst();
+            AbstractMovable.getAllMovable().filter(movable -> ab.isCollidingWith(movable)).findFirst();
 
     if (oam.isPresent()) {
       ab.collideWith(oam.get(), prevPosition);
@@ -122,27 +122,29 @@ public class PhysicalController extends Board implements IMovableVisitor {
   @Override
   protected void doMoves() {
     AbstractMovable.getAllMovable()
-        .forEach(
-            movable -> {
-              if (movable.getSpeed() < 0.05) {
-                movable.setSpeed(0.0);
-              }
+            .forEach(
+                    movable -> {
+                      if (movable.getSpeed() < 0.05) {
+                        movable.setSpeed(0.0);
+                      }
 
-              movable.move(this);
-            });
+                      movable.move(this);
+                    });
   }
 
   public void generateExplosion(
-      double centerX, double centerY, int explosionRadius, int explosionDamage) {
+          double centerX, double centerY, int explosionRadius, int explosionDamage) {
     Ellipse2D circle = DrawHelper.getCircle(centerX, centerY, explosionRadius);
     getWormField().doExplosionOnField(circle);
 
     AbstractMovable.getAllMovable()
-        .forEach(
-            movable -> {
-              if (movable.isCollidingWith(circle)) {
-                movable.takeDamage(explosionDamage);
-              }
-            });
+            .forEach(
+                    movable -> {
+                      if (movable.isCollidingWith(circle)) {
+                        movable.takeDamage(explosionDamage);
+                      }
+                    });
+
+    new Explosion(centerX, centerY, explosionRadius);
   }
 }

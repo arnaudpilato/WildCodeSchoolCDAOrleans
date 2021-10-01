@@ -25,12 +25,12 @@ public class Shotgun extends AbstractWeapon {
 
     if (getAngle() > Math.PI / 2) {
       AffineTransform trans =
-          AffineTransform.getTranslateInstance(Helper.getWormX() + 100, Helper.getWormY());
+          AffineTransform.getTranslateInstance(Helper.getWormX() + 10, Helper.getWormY());
       trans.scale(-1, 1);
 
       g.drawImage(image, trans, io);
     } else {
-      g.drawImage(image, (int) Helper.getWormX(), (int) Helper.getWormY(), io);
+      g.drawImage(image, (int) Helper.getWormX() - 10, (int) Helper.getWormY(), io);
     }
   }
 

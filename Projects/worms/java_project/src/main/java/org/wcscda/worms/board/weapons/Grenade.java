@@ -11,10 +11,10 @@ import java.awt.image.ImageObserver;
 
 
 public class Grenade extends AbstractWeapon {
-    private static final String imagePath = "src/resources/weapons/grenade0.png";
+    private static final String imagePath = "src/resources/weapons/grenadeR.png";
     private static Image image = null;
     private static void initImages() {
-        image = new ImageIcon(imagePath).getImage().getScaledInstance(50, 30, 0);
+        image = new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, 0);
     }
 
     @Override
@@ -23,9 +23,11 @@ public class Grenade extends AbstractWeapon {
             initImages();
         }
 
+        // Image worm = isRightFacing() ? wormRF : wormLF;
+
         if (getAngle() > Math.PI / 2) {
             AffineTransform trans =
-                    AffineTransform.getTranslateInstance(Helper.getWormX() + 100, Helper.getWormY());
+                    AffineTransform.getTranslateInstance(Helper.getWormX(), Helper.getWormY());
             trans.scale(-1, 1);
 
             g.drawImage(image, trans, io);

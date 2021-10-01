@@ -2,6 +2,7 @@ package org.wcscda.worms;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
@@ -12,8 +13,17 @@ import org.wcscda.worms.board.IVisitable;
 import org.wcscda.worms.gamemechanism.Board;
 
 public class Worm extends ARBEWithGravity implements IVisitable {
-  private static final String leftFacingResource = "src/resources/WormLF.png";
-  private static final String rightFacingResource = "src/resources/WormRF.png";
+  private static final String[] wormFacings = {
+          "src/resources/worm/worm-1.png",
+          "src/resources/worm/worm-2.png",
+          "src/resources/worm/worm-3.png",
+          "src/resources/worm/worm-4.png",
+          "src/resources/worm/worm-5.png",
+          "src/resources/worm/worm-6.png",
+          "src/resources/worm/worm-7.png",
+          "src/resources/worm/worm-8.png",
+          "src/resources/worm/worm-9.png"
+  };
 
   public int getLife() {
     return life;
@@ -23,23 +33,21 @@ public class Worm extends ARBEWithGravity implements IVisitable {
     this.life = life;
   }
 
-  private static final int imageHeight = 60;
-  private static final int imageWidth = 54;
+  private static final int imageHeight = 58;
+  private static final int imageWidth = 50;
   private static final int rectPadding = 15;
 
-  private static Image wormLF = null;
-  private static Image wormRF = null;
-  private int shownLife = 10;
-  private int life = 10;
+  private static final Image[] wormImagesFacing = new Image[9];
+  private int shownLife = 100;
+  private int life = 100;
   private final String name;
   private final Player player;
   private boolean isUserMoving;
 
   private static void initImages() {
-    wormLF =
-        new ImageIcon(leftFacingResource).getImage().getScaledInstance(imageWidth, imageHeight, 0);
-    wormRF =
-        new ImageIcon(rightFacingResource).getImage().getScaledInstance(imageWidth, imageHeight, 0);
+      for (int i = 0; i < wormFacings.length; i++) {
+        wormImagesFacing[i] = new ImageIcon(wormFacings[i]).getImage().getScaledInstance(imageWidth, imageHeight, 0);
+      }
   }
 
   // NRO 2021-09-28 : Player is the Worm factory
@@ -65,11 +73,26 @@ public class Worm extends ARBEWithGravity implements IVisitable {
 
   @Override
   protected void drawMain(Graphics2D g, ImageObserver io) {
-    if (wormLF == null) initImages();
-    Image worm = isRightFacing() ? wormRF : wormLF;
+    if (wormImagesFacing[0] == null) {
+      initImages();
+    }
 
-    g.drawImage(worm, getX() - rectPadding, getY() - rectPadding, io);
+    assert wormImagesFacing != null;
+    AffineTransform reverseWorm =
+            AffineTransform.getTranslateInstance(getX() + 35,getY() - rectPadding);
+    reverseWorm.scale(-1, 1);
 
+    if ((isUserMoving) && (isRightFacing())) {
+      g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], getX() - rectPadding, getY() - rectPadding, io);
+    } else if (isRightFacing()) {
+      g.drawImage(wormImagesFacing[0], getX() - rectPadding, getY() - rectPadding, io);
+    }
+
+    if ((isUserMoving) && (!isRightFacing())){
+      g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], reverseWorm, io);
+    } else if (!isRightFacing()) {
+      g.drawImage(wormImagesFacing[0], reverseWorm, io);
+    }
     // Drawing the life
     g.setColor(player.getColor());
     g.drawString(name, (int) getX(), (int) getY() - 30);
