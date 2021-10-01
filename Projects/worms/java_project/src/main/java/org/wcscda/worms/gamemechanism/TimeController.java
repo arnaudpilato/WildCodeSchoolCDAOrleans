@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.Timer;
 import org.wcscda.worms.Config;
+import org.wcscda.worms.Helper;
 import org.wcscda.worms.Player;
 import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.Score;
@@ -104,7 +105,16 @@ public class TimeController implements ActionListener {
         activePlayerIndex %= players.size();
         getActivePlayer().setNextWorm();
         getActivePlayer().initWeapon();
-
+        int nbLooser = 0;
+        for (int i = 0; i < Helper.getTC().getPlayers().size(); i++) {
+            if ((Helper.getActivePlayer().getWorms().size() > 0) && (Helper.getTC().getPlayers().get(i).getWorms().size() < 1)) {
+                System.out.println(" l'équipe " + Helper.getTC().getPlayers().get(i).getName() + " à perdu");
+                nbLooser++;
+                if (nbLooser == players.size()-1) {
+                    System.out.println(" l'équipe " + Helper.getActivePlayer().getName() + " à gagné");
+                }
+            }
+        }
         AbstractPhase phase = new WormMovingPhase();
         this.setCurrentPhase(phase);
     }
