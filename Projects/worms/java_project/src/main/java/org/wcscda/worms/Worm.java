@@ -40,6 +40,7 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   private static final Image[] wormImagesFacing = new Image[9];
   private int shownLife = 100;
   private int life = 100;
+
   private final String name;
   private final Player player;
   private boolean isUserMoving;
