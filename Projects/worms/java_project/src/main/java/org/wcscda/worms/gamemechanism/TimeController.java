@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.Timer;
+
 import org.wcscda.worms.Config;
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.Player;
@@ -15,30 +16,27 @@ import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
 
 public class TimeController implements ActionListener {
-  private static TimeController instance;
-  private PhysicalController board;
-  private Timer timer;
-  private ArrayList<Player> players = new ArrayList<Player>();
-  private int activePlayerIndex = 0;
-  private AbstractPhase currentPhase;
-  private int phaseCount = 0;
-  private boolean delayedSetNextWorm;
+    private static TimeController instance;
+    private PhysicalController board;
+    private Timer timer;
+    private ArrayList<Player> players = new ArrayList<Player>();
+    private int activePlayerIndex = 0;
+    private AbstractPhase currentPhase;
+    private int phaseCount = 0;
+    private boolean delayedSetNextWorm;
 
-  public TimeController() {
-    instance = this;
-    initGame();
+    public TimeController() {
+        instance = this;
+        initGame();
 
-    board.addKeyListener(new KeyboardController());
+        board.addKeyListener(new KeyboardController());
 
-    timer = new Timer(Config.getClockDelay(), this);
-    timer.start();
-  }
+        timer = new Timer(Config.getClockDelay(), this);
+        timer.start();
+    }
 
     private void initGame() {
         board = new PhysicalController();
-        // Lucky luke because for the moment he is a poor lonesome
-        // player
-
         Map<String, String[]> teams = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Saisissez le nombre de joueurs :");
@@ -47,7 +45,7 @@ public class TimeController implements ActionListener {
         System.out.println("Saisissez le nombre de Worms :");
         int numberOfWorms = scanner.nextInt();
         //Worm[] worms = new Worm[numberOfWorms];
-        for (int i= 0; i < numberOfTeams; i ++) {
+        for (int i = 0; i < numberOfTeams; i++) {
             System.out.println("Choisissez le nom de la team du joueur " + (i + 1) + " :");
             String playerName = scanner.next();
             // players[i] = createPlayer(playerName, Color.BLUE);
@@ -76,18 +74,16 @@ public class TimeController implements ActionListener {
             String[] worms = entry.getValue();
 
             playerName[j] = createPlayer(player, randomColor);
-            for (int i=0; i < worms.length; i++) {
+            for (int i = 0; i < worms.length; i++) {
                 wormsName[j][i] = playerName[j].createWorm(worms[i]);
                 board.wormInitialPlacement(wormsName[j][i]);
             }
             j++;
         }
-
+        doSetNextWorm();
         Score score = new Score();
         score.setPlayers(playerName);
-
-    doSetNextWorm();
-  }
+    }
 
     public void setNextWorm() {
         delayedSetNextWorm = true;
@@ -101,20 +97,32 @@ public class TimeController implements ActionListener {
     }
 
     protected void doSetNextWorm() {
-        activePlayerIndex += 1;
-        activePlayerIndex %= players.size();
-        getActivePlayer().setNextWorm();
-        getActivePlayer().initWeapon();
+        for (int i = 0; i < players.size(); ++i) {
+            activePlayerIndex += 1;
+            activePlayerIndex %= players.size();
+            if (getActivePlayer().hasWorms()) break;
+        }
+
+        // No player have any worm, it is sad ...
+        if (!getActivePlayer().hasWorms()) {
+            return;
+        }
+
+
+
         int nbLooser = 0;
         for (int i = 0; i < Helper.getTC().getPlayers().size(); i++) {
             if ((Helper.getActivePlayer().getWorms().size() > 0) && (Helper.getTC().getPlayers().get(i).getWorms().size() < 1)) {
                 System.out.println(" l'équipe " + Helper.getTC().getPlayers().get(i).getName() + " à perdu");
                 nbLooser++;
-                if (nbLooser == players.size()-1) {
+                if (nbLooser == players.size() - 1) {
                     System.out.println(" l'équipe " + Helper.getActivePlayer().getName() + " à gagné");
                 }
             }
         }
+        getActivePlayer().setNextWorm();
+        getActivePlayer().initWeapon();
+
         AbstractPhase phase = new WormMovingPhase();
         this.setCurrentPhase(phase);
     }
