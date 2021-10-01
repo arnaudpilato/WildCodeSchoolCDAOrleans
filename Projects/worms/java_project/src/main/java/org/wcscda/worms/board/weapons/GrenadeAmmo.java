@@ -9,15 +9,18 @@ public class GrenadeAmmo extends AbstractAmmo {
     private static final int GRENADE_RECT_SIZE = 10;
 
     public GrenadeAmmo(Double angle) {
-        super(GRENADE_RECT_SIZE, GRENADE_RECT_SIZE, EXPLOSION_RADIUS, EXPLOSION_DAMAGE);
-        setDirection(angle);
-        setSpeed(5);
+        super(EXPLOSION_RADIUS, EXPLOSION_DAMAGE);
+        createMovableRect(GRENADE_RECT_SIZE, GRENADE_RECT_SIZE);
+        getMovable().setDirection(angle);
+        getMovable().setSpeed(5);
+
+
     }
 
 
 
     @Override
-    protected void drawMain(Graphics2D g, ImageObserver io) {
+    public void drawMain(Graphics2D g, ImageObserver io) {
         // TODO Auto-generated method stub
 
     }
