@@ -81,9 +81,9 @@ public class PhysicalController extends Board implements IMovableVisitor {
   }
 
   @Override
-  public void visit(ARBEWithGravity arbewg, Point2D prevPosition) {
-    // Do gravity first
-    boolean moveIsPossibleWithGravity = doGravity(arbewg);
+    public void visit(ARBEWithGravity arbewg, Point2D prevPosition) {
+      // Do gravity first
+      boolean moveIsPossibleWithGravity = doGravity(arbewg);
     if (!moveIsPossibleWithGravity) {
       arbewg.setPosition(prevPosition);
       return;
@@ -121,5 +121,7 @@ public class PhysicalController extends Board implements IMovableVisitor {
                 movable.takeDamage(explosionDamage);
               }
             });
+
+    new Explosion(centerX, centerY, explosionRadius);
   }
 }
