@@ -9,6 +9,7 @@ import javax.swing.Timer;
 import org.wcscda.worms.Config;
 import org.wcscda.worms.Player;
 import org.wcscda.worms.Worm;
+import org.wcscda.worms.board.Score;
 import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
 
@@ -58,9 +59,10 @@ public class TimeController implements ActionListener {
         }
 
         Random random = new Random();
+
         int j = 0;
         Player[] playerName = new Player[numberOfTeams];
-        Worm[] wormsName = new Worm[numberOfWorms];
+        Worm[][] wormsName = new Worm[numberOfTeams][numberOfWorms];
 
         for (Map.Entry<String, String[]> entry : teams.entrySet()) {
             float r = random.nextFloat();
@@ -73,16 +75,15 @@ public class TimeController implements ActionListener {
             String[] worms = entry.getValue();
 
             playerName[j] = createPlayer(player, randomColor);
-            System.out.println(playerName[j].getName());
-
-            System.out.println(player);
             for (int i=0; i < worms.length; i++) {
-                wormsName[i] = playerName[j].createWorm(worms[i]);
-                System.out.print(worms[i] + " ");
-                board.wormInitialPlacement(wormsName[i]);
+                wormsName[j][i] = playerName[j].createWorm(worms[i]);
+                board.wormInitialPlacement(wormsName[j][i]);
             }
             j++;
         }
+
+        Score score = new Score();
+        score.setPlayers(playerName);
 
     doSetNextWorm();
   }
