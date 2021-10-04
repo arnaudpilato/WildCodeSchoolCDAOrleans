@@ -12,7 +12,9 @@ import org.wcscda.worms.Helper;
 import org.wcscda.worms.Player;
 import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.Score;
+import org.wcscda.worms.board.Winner;
 import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
+import org.wcscda.worms.gamemechanism.phases.EndOfGamePhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
 
 public class TimeController implements ActionListener {
@@ -117,6 +119,8 @@ public class TimeController implements ActionListener {
                 nbLooser++;
                 if (nbLooser == players.size() - 1) {
                     System.out.println(" l'équipe " + Helper.getActivePlayer().getName() + " à gagné");
+                    Worm.winner = true;
+                    new Winner((int) Helper.getWormX(), (int) Helper.getWormY());
                 }
             }
         }
