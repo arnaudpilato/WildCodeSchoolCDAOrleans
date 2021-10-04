@@ -6,11 +6,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
-import org.wcscda.worms.board.ARBEWithGravity;
-import org.wcscda.worms.board.AbstractBoardElement;
-import org.wcscda.worms.board.IMovableVisitor;
-import org.wcscda.worms.board.IVisitable;
+
+import org.wcscda.worms.board.*;
 import org.wcscda.worms.gamemechanism.Board;
+import org.wcscda.worms.gamemechanism.TimeController;
+
 
 public class Worm extends ARBEWithGravity implements IVisitable {
   private static final String[] wormFacings = {
@@ -24,6 +24,8 @@ public class Worm extends ARBEWithGravity implements IVisitable {
           "src/resources/worm/worm-8.png",
           "src/resources/worm/worm-9.png"
   };
+  public static boolean winner = false;
+
 
   public int getLife() {
     return life;
@@ -36,6 +38,8 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   private static final int imageHeight = 58;
   private static final int imageWidth = 50;
   private static final int rectPadding = 15;
+  private int[] positionX = new int[Helper.getTC().getPlayers().size()];
+  private double[] positionY = new double[Helper.getTC().getPlayers().size()];
 
   private static final Image[] wormImagesFacing = new Image[9];
   private int shownLife = 100;
@@ -43,6 +47,13 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   private final String name;
   private final Player player;
   private boolean isUserMoving;
+
+
+
+  public static double numberOfDies = 0;
+
+
+
 
   private static void initImages() {
       for (int i = 0; i < wormFacings.length; i++) {
@@ -77,22 +88,25 @@ public class Worm extends ARBEWithGravity implements IVisitable {
       initImages();
     }
 
-    assert wormImagesFacing != null;
     AffineTransform reverseWorm =
             AffineTransform.getTranslateInstance(getX() + 35,getY() - rectPadding);
     reverseWorm.scale(-1, 1);
 
-    if ((isUserMoving) && (isRightFacing())) {
-      g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], getX() - rectPadding, getY() - rectPadding, io);
-    } else if (isRightFacing()) {
-      g.drawImage(wormImagesFacing[0], getX() - rectPadding, getY() - rectPadding, io);
+    if (winner == false) {
+      if ((isUserMoving) && (isRightFacing())) {
+        g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], getX() - rectPadding, getY() - rectPadding, io);
+      } else if (isRightFacing()) {
+        g.drawImage(wormImagesFacing[0], getX() - rectPadding, getY() - rectPadding, io);
+      }
+
+      if ((isUserMoving) && (!isRightFacing())){
+        g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], reverseWorm, io);
+      } else if (!isRightFacing()) {
+        g.drawImage(wormImagesFacing[0], reverseWorm, io);
+      }
     }
 
-    if ((isUserMoving) && (!isRightFacing())){
-      g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], reverseWorm, io);
-    } else if (!isRightFacing()) {
-      g.drawImage(wormImagesFacing[0], reverseWorm, io);
-    }
+
     // Drawing the life
     g.setColor(player.getColor());
     g.drawString(name, (int) getX(), (int) getY() - 30);
@@ -145,6 +159,8 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   public void takeDamage(int damage) {
     life -= damage;
     if (life <= 0) {
+      /*new Die(Helper.getWormX(), Helper.getWormY(), (int) numberOfDies);
+      this.numberOfDies += 1;*/
       die();
     }
   }
