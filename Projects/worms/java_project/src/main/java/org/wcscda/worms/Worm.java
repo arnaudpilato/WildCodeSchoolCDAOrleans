@@ -47,8 +47,15 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   private final String name;
   private final Player player;
   private boolean isUserMoving;
+  private int ammunition = 0 ;
 
+  public int getAmmunition() {
+    return ammunition;
+  }
 
+  public void setAmmunition(int ammunition) {
+    this.ammunition = ammunition;
+  }
 
   public static double numberOfDies = 0;
 
