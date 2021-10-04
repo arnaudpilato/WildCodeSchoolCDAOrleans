@@ -69,6 +69,8 @@ public class Player {
       currentWeapon = new Grenade();
     } else if (currentWeapon instanceof Grenade)  {
       currentWeapon = new SuperGrenade();
+    } else if (currentWeapon instanceof SuperGrenade) {
+      currentWeapon = new GrenadeBanane();
     } else {
       currentWeapon = new Shotgun();
     }
