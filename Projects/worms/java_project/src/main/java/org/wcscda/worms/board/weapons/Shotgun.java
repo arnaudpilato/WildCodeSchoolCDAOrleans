@@ -13,6 +13,7 @@ public class Shotgun extends AbstractWeapon {
   private static Image image = null;
   private int nbFiredShoots = 0;
 
+
   private static void initImages() {
     image = new ImageIcon(imagePath).getImage().getScaledInstance(50, 35, 0);
   }
@@ -36,20 +37,20 @@ public class Shotgun extends AbstractWeapon {
   }
 
   public AbstractPhase getNextPhase() {
+    Helper.getActiveWorm().setAmmunition(Helper.getActiveWorm().getAmmunition() - 1 );
     nbFiredShoots++;
 
     return new MovingPhase();
   }
 
   public void triggerAmmoExplosion() {
-    if (nbFiredShoots == 2) {
+    if ((Helper.getActiveWorm().getAmmunition() == 2) && (nbFiredShoots == 2)) {
       super.triggerAmmoExplosion();
+      nbFiredShoots = 0 ;
     } else {
       Helper.getTC().setCurrentPhase(new WormMovingPhase());
     }
   }
 
-  public boolean isChangingWeaponDisabled() {
-    return nbFiredShoots != 0;
-  }
+
 }
