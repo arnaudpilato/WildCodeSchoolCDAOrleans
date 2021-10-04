@@ -11,6 +11,7 @@ import org.wcscda.worms.gamemechanism.phases.*;
 public class Shotgun extends AbstractWeapon {
   private static final String imagePath = "src/resources/weapons/Shotgun_small.png";
   private static Image image = null;
+  private int nbFiredShoots = 0;
 
 
   private static void initImages() {
@@ -36,14 +37,16 @@ public class Shotgun extends AbstractWeapon {
   }
 
   public AbstractPhase getNextPhase() {
-    Helper.getActiveWorm().setAmmunition(Helper.getActiveWorm().getAmmunition() + 1 );
+    Helper.getActiveWorm().setAmmunition(Helper.getActiveWorm().getAmmunition() - 1 );
+    nbFiredShoots++;
 
     return new MovingPhase();
   }
 
   public void triggerAmmoExplosion() {
-    if (Helper.getActiveWorm().getAmmunition() == 2) {
+    if ((Helper.getActiveWorm().getAmmunition() == 2) && (nbFiredShoots == 2)) {
       super.triggerAmmoExplosion();
+      nbFiredShoots = 0 ;
     } else {
       Helper.getTC().setCurrentPhase(new WormMovingPhase());
     }

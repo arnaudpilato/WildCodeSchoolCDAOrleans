@@ -39,7 +39,7 @@ public class WormMovingPhase extends AbstractPhase {
 
         if (key.equals("Space")) {
             System.out.println("Ammunition : " + Helper.getActiveWorm().getAmmunition());
-            if ((Helper.getActivePlayer().getCurrentWeapon() instanceof Shotgun) && (Helper.getActiveWorm().getAmmunition() > 2)) {
+            if ((Helper.getActivePlayer().getCurrentWeapon() instanceof Shotgun) && (Helper.getActiveWorm().getAmmunition() < 1)) {
                 Helper.getActivePlayer().changeWeapon();
             }else {
                 Helper.getCurrentWeapon().fire();
