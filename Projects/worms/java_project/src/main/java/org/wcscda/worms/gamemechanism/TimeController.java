@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.*;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Timer;
 
 import org.wcscda.worms.Config;
@@ -17,8 +20,11 @@ import org.wcscda.worms.board.Winner;
 import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
 import org.wcscda.worms.gamemechanism.phases.EndOfGamePhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
+import org.wcscda.worms.gamemechanism.playerrecorder.KeyboardControllerPlayer;
+import org.wcscda.worms.gamemechanism.playerrecorder.KeyboardControllerRecorder;
 
 public class TimeController implements ActionListener {
+    private final KeyboardController keyboardController;
     private static TimeController instance;
     private PhysicalController board;
     private Timer timer;
@@ -27,18 +33,33 @@ public class TimeController implements ActionListener {
     private AbstractPhase currentPhase;
     private int phaseCount = 0;
     private boolean delayedSetNextWorm;
-    private Random rand = new Random();
-    private int randX = rand.nextInt(1150);
-//    private int randY = rand.nextInt(300);
+
+
+    public static int random_int(int Min, int Max)
+    {
+        return (int) (Math.random()*(Max-Min))+Min;
+    }
+
+
 
     public TimeController() {
         instance = this;
         initGame();
-
-        board.addKeyListener(new KeyboardController());
+        keyboardController = createController();
+        board.addKeyListener(keyboardController);
 
         timer = new Timer(Config.getClockDelay(), this);
         timer.start();
+    }
+
+    private KeyboardController createController() {
+        if (Config.getRecordGame()) {
+            return new KeyboardControllerRecorder(this.board);
+        } else if (Config.getPlayRecord()) {
+            return new KeyboardControllerPlayer();
+        } else {
+            return new KeyboardController();
+        }
     }
 
     private void initGame() {
@@ -89,7 +110,25 @@ public class TimeController implements ActionListener {
         doSetNextWorm();
         Score score = new Score();
         score.setPlayers(playerName);
-        AmmunitionBox ammunition = new AmmunitionBox(randX,10, 80 ,55);
+        AmmunitionBox box = new AmmunitionBox(500, -2000,60,50);
+//        box.onIterationBegin();
+        try {
+            new WormSoundPlayer().startSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            new WormSoundPlayer().ambientSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+  public KeyboardController getKeyboardController() {
+    return keyboardController;
+
 
     }
 
@@ -127,6 +166,11 @@ public class TimeController implements ActionListener {
                     System.out.println(" l'équipe " + Helper.getActivePlayer().getName() + " à gagné");
                     Worm.winner = true;
                     new Winner((int) Helper.getWormX(), (int) Helper.getWormY());
+                    try {
+                        new WormSoundPlayer().winSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

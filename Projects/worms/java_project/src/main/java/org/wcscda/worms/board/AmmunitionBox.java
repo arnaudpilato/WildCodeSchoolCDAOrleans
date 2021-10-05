@@ -13,6 +13,8 @@ public class AmmunitionBox extends ARBEWithGravity {
     private static final String imagePath2 = "src/resources/ammunitionBox.png";
     private static Image img;
     private int ammunitions = 0;
+    private Random rand = new Random();
+    private int randX = rand.nextInt(1150);
 
     public AmmunitionBox(int x, int y, int rectWidth, int rectHeight) {
         super(x, y, rectWidth, rectHeight);
@@ -21,7 +23,7 @@ public class AmmunitionBox extends ARBEWithGravity {
 
     public static void initImages() {
 
-            img = new ImageIcon(imagePath).getImage().getScaledInstance(200, 200, 0);
+            img = new ImageIcon(imagePath).getImage().getScaledInstance(145, 200, 0);
 
     }
 
@@ -46,12 +48,23 @@ public class AmmunitionBox extends ARBEWithGravity {
         if (img == null){
             initImages();
         }
-        g.drawImage(img, getX()-70, getY()-135, io);
+        g.drawImage(img, getX()-50, getY()-145, io);
 
     }
 
     @Override
     public void collideWith(AbstractBoardElement movable, Point2D prevPosition) {
 
+    }
+    public static int random_int(int Min, int Max)
+    {
+        return (int) (Math.random()*(Max-Min))+Min;
+    }
+
+    @Override
+    public void onIterationBegin(){
+        if (Helper.getClock() == random_int(0, 600) ){
+            setPosition(new Point2D.Double(randX, 3));
+        }
     }
 }

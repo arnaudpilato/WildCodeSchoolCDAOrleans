@@ -5,11 +5,15 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 
 import org.wcscda.worms.board.*;
 import org.wcscda.worms.gamemechanism.Board;
 import org.wcscda.worms.gamemechanism.TimeController;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
 
 public class Worm extends ARBEWithGravity implements IVisitable {
@@ -165,6 +169,13 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   @Override
   public void takeDamage(int damage) {
     life -= damage;
+
+    try {
+      new WormSoundPlayer().screamSound();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+      e.printStackTrace();
+    }
+
     if (life <= 0) {
       /*new Die(Helper.getWormX(), Helper.getWormY(), (int) numberOfDies);
       this.numberOfDies += 1;*/
@@ -185,4 +196,5 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   public void accept(Point2D prevPosition, IMovableVisitor visitor) {
     visitor.visit(this, prevPosition);
   }
+
 }

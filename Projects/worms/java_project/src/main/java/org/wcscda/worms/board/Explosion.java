@@ -3,10 +3,16 @@ package org.wcscda.worms.board;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
-import org.wcscda.worms.DrawHelper;
-import org.wcscda.worms.Helper;
+import java.io.IOException;
 
+import org.wcscda.worms.Helper;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+
+import org.wcscda.worms.utils.DrawHelper;
 
 public class Explosion extends AbstractDrawableElement {
   private static final int LIFE_DURATION = 18;
@@ -116,6 +122,7 @@ public class Explosion extends AbstractDrawableElement {
       g.drawImage(grenade[(Helper.getClock()) % grenade.length], (int)centerX - 100, (int)centerY - 100, io);
       g.setColor(Color.RED);
       //g.fill(explosion);
+      // new WormSoundPlayer().playWav();
     }
 
     if (radius > 100) {

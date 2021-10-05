@@ -1,11 +1,15 @@
 package org.wcscda.worms.board.weapons;
 
 import org.wcscda.worms.Helper;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 
 public class ShotgunAmmo extends AbstractAmmo {
   private static final int EXPLOSION_RADIUS = 30;
@@ -25,7 +29,15 @@ public class ShotgunAmmo extends AbstractAmmo {
     super(EXPLOSION_RADIUS, EXPLOSION_DAMAGE);
     createMovableRect(HADOKEN_RECT_SIZE, HADOKEN_RECT_SIZE);
     getMovable().setDirection(angle);
+
     getMovable().setSpeed(10);
+    try {
+      new WormSoundPlayer().shotgunSound();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    setInitialPosition();
   }
 
   @Override
