@@ -39,14 +39,16 @@ public class Shotgun extends AbstractWeapon {
   public AbstractPhase getNextPhase() {
     Helper.getActiveWorm().setAmmunition(Helper.getActiveWorm().getAmmunition() - 1 );
     nbFiredShoots++;
-
+    System.out.println(nbFiredShoots);
     return new MovingPhase();
   }
 
   public void triggerAmmoExplosion() {
-    if ((Helper.getActiveWorm().getAmmunition() == 2) && (nbFiredShoots == 2)) {
-      super.triggerAmmoExplosion();
+    System.out.println(nbFiredShoots);
+    if (nbFiredShoots == 2) {
       nbFiredShoots = 0 ;
+      super.triggerAmmoExplosion();
+
     } else {
       Helper.getTC().setCurrentPhase(new WormMovingPhase());
     }
