@@ -1,9 +1,15 @@
 package org.wcscda.worms.board.weapons;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
-import org.wcscda.worms.Helper;
+import java.io.IOException;
 
+import org.wcscda.worms.Helper;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 public class HadokenAmmo extends AbstractAmmo {
@@ -38,6 +44,12 @@ public class HadokenAmmo extends AbstractAmmo {
 
     initialX = Helper.getWormX();
     initialY = Helper.getWormY();
+
+    try {
+      new WormSoundPlayer().hadokenSound();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -45,16 +57,16 @@ public class HadokenAmmo extends AbstractAmmo {
     if (hadoken[0] == null) {
       initImages();
     }
-    /*g.setColor(Color.BLUE);
-    g.setStroke(new BasicStroke(10));
-    g.drawLine(
-        (int) initialX,
-        (int) initialY,
-        (int) getMovable().getCenterX(),
-        (int) getMovable().getCenterY());
-        */
 
-    g.drawImage(hadoken[Helper.getClock() % hadoken.length], (int) getMovable().getCenterX() - 40, (int) getMovable().getCenterY() - 22, io);
+    if (Helper.getActiveWorm().getDirection() > Math.PI / 2) {
+      AffineTransform trans =
+              AffineTransform.getTranslateInstance(getMovable().getX() + 20, getMovable().getY());
+      trans.scale(-1, 1);
 
+      g.drawImage(hadoken[Helper.getClock() % hadoken.length], trans, io);
+
+    } else {
+      g.drawImage(hadoken[Helper.getClock() % hadoken.length], (int) getMovable().getCenterX() - 20, (int) getMovable().getCenterY() - 22, io);
+    }
   }
 }

@@ -2,11 +2,18 @@ package org.wcscda.worms.board.weapons;
 
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.Worm;
+import org.wcscda.worms.board.ARBEWIthHandler;
+import org.wcscda.worms.board.ARBEWIthHandlerWithGravity;
+import org.wcscda.worms.board.ARBEWithGravity;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 
 public class GrenadeAmmo extends AbstractAmmo {
     private static final int EXPLOSION_RADIUS = 80;
@@ -34,6 +41,8 @@ public class GrenadeAmmo extends AbstractAmmo {
             "src/resources/grenade/grenade-16.png",
     };
 
+
+
     private static void initImages() {
         for (int i = 0; i < imagePath.length; i++) {
             grenade[i] = new ImageIcon(imagePath[i]).getImage().getScaledInstance(30, 30, 0);
@@ -44,10 +53,26 @@ public class GrenadeAmmo extends AbstractAmmo {
         super(EXPLOSION_RADIUS, EXPLOSION_DAMAGE);
         createMovableRect(GRENADE_RECT_SIZE, GRENADE_RECT_SIZE);
         getMovable().setDirection(angle);
-        getMovable().setSpeed(5);
+        getMovable().setSpeed(4);
 
         initialX = Helper.getWormX();
         initialY = Helper.getWormY();
+
+        try {
+            new WormSoundPlayer().grenadeDropSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void createMovableRect(int rectWidth, int rectHeight) {
+        setMovable(new ARBEWIthHandlerWithGravity(
+                Helper.getWormX() - rectWidth / 2,
+                Helper.getWormY() - rectHeight / 2,
+                rectWidth,
+                rectHeight,
+                this));
+
     }
 
     @Override
@@ -57,6 +82,7 @@ public class GrenadeAmmo extends AbstractAmmo {
             initImages();
         }
 
+
         if (Helper.getActiveWorm().getDirection() > Math.PI / 2) {
             g.drawImage(grenade[Helper.getClock() % grenade.length], (int) getMovable().getCenterX(), (int) getMovable().getCenterY() - 18, io);
         } else {
@@ -65,6 +91,16 @@ public class GrenadeAmmo extends AbstractAmmo {
             trans.scale(-1, 1);
 
             g.drawImage(grenade[Helper.getClock() % grenade.length], trans, io);
+        }
+    }
+
+    @Override
+    protected void explode() {
+        super.explode();
+        try {
+            new WormSoundPlayer().grenadeSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

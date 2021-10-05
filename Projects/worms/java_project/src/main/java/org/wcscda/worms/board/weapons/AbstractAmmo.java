@@ -11,8 +11,11 @@ public abstract class AbstractAmmo implements IMovableHandler {
   private final int firedPhase;
   private final int explosionRadius;
   private final int explosionDamage;
-
   private AbstractRectangularBoardElement movable;
+
+  public void setMovable(AbstractRectangularBoardElement movable) {
+    this.movable = movable;
+  }
 
   public AbstractAmmo(int explosionRadius, int explosionDamage) {
     firedPhase = Helper.getClock();
