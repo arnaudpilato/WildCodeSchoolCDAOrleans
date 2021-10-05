@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.*;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Timer;
 
 import org.wcscda.worms.Config;
@@ -85,6 +88,18 @@ public class TimeController implements ActionListener {
         doSetNextWorm();
         Score score = new Score();
         score.setPlayers(playerName);
+
+        try {
+            new WormSoundPlayer().startSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            new WormSoundPlayer().ambientSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setNextWorm() {
@@ -121,6 +136,11 @@ public class TimeController implements ActionListener {
                     System.out.println(" l'équipe " + Helper.getActivePlayer().getName() + " à gagné");
                     Worm.winner = true;
                     new Winner((int) Helper.getWormX(), (int) Helper.getWormY());
+                    try {
+                        new WormSoundPlayer().winSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

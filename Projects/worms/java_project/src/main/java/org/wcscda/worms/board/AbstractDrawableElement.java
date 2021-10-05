@@ -2,8 +2,12 @@ package org.wcscda.worms.board;
 
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 import java.util.*;
 import org.wcscda.worms.Config;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 // NRO 2021-09-27 : Drawable elements are present visually
 //  but might not have physical presence (ie timer)

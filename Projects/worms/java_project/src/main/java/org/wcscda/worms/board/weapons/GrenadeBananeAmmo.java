@@ -1,11 +1,16 @@
 package org.wcscda.worms.board.weapons;
 
 import org.wcscda.worms.Helper;
+import org.wcscda.worms.board.ARBEWIthHandlerWithGravity;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 
 public class GrenadeBananeAmmo extends AbstractAmmo {
     private static final int EXPLOSION_RADIUS = 150;
@@ -50,10 +55,20 @@ public class GrenadeBananeAmmo extends AbstractAmmo {
         super(EXPLOSION_RADIUS, EXPLOSION_DAMAGE);
         createMovableRect(GRENADE_RECT_SIZE, GRENADE_RECT_SIZE);
         getMovable().setDirection(angle);
-        getMovable().setSpeed(5);
+        getMovable().setSpeed(7);
 
         initialX = Helper.getWormX();
         initialY = Helper.getWormY();
+    }
+
+    protected void createMovableRect(int rectWidth, int rectHeight) {
+        setMovable(new ARBEWIthHandlerWithGravity(
+                Helper.getWormX() - rectWidth / 2,
+                Helper.getWormY() - rectHeight / 2,
+                rectWidth,
+                rectHeight,
+                this));
+
     }
 
     @Override
@@ -71,6 +86,16 @@ public class GrenadeBananeAmmo extends AbstractAmmo {
             g.drawImage(grenadeBanane[Helper.getClock() % grenadeBanane.length],trans, io);
         } else {
             g.drawImage(grenadeBanane[Helper.getClock() % grenadeBanane.length], (int) getMovable().getCenterX(), (int) getMovable().getCenterY() - 18, io);
+        }
+    }
+
+    @Override
+    protected void explode() {
+        super.explode();
+        try {
+            new WormSoundPlayer().grenadeBananeSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

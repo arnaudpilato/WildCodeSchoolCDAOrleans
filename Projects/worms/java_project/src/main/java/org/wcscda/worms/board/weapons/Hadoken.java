@@ -6,7 +6,13 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 // import java.awt.geom.Ellipse2D;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
+
 import org.wcscda.worms.Helper;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Hadoken extends AbstractWeapon {
   private static final int hadokenRadius = 50;
@@ -23,5 +29,15 @@ public class Hadoken extends AbstractWeapon {
     g.setColor(Color.BLUE);
     g.setStroke(new BasicStroke(10));
     g.draw(circle);
+  }
+
+  @Override
+  public void triggerAmmoExplosion() {
+    super.triggerAmmoExplosion();
+    try {
+      new WormSoundPlayer().hadokenImpactSound();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }

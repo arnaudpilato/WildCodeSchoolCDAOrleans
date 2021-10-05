@@ -1,12 +1,14 @@
 package org.wcscda.worms.board;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.image.ImageObserver;
+
+import org.wcscda.worms.Helper;
 import org.wcscda.worms.RandomGenerator;
+
+import javax.swing.*;
 
 public class WormField extends AbstractBoardElement {
   private Area frontier;
@@ -15,6 +17,12 @@ public class WormField extends AbstractBoardElement {
 
   public WormField(int width, int height) {
     initRandomSpline(width, height);
+  }
+  private static final String imagePath = "src/resources/sky/sky-3.jpeg";
+  private static Image image = null;
+
+  private static void initImages() {
+    image = new ImageIcon(imagePath).getImage().getScaledInstance(1200, 800, 0);
   }
 
   private void initRandomSpline(int width, int height) {
@@ -50,6 +58,10 @@ public class WormField extends AbstractBoardElement {
 
   @Override
   public void drawMain(Graphics2D g, ImageObserver io) {
+    if (image == null) {
+      initImages();
+    }
+    g.drawImage(image, 0, 0, io);
     g.setColor(Color.green);
     g.fill(frontier);
   }
