@@ -63,6 +63,7 @@ public class GrenadeAmmo extends AbstractAmmo {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
         }
+        setInitialPosition();
     }
 
     protected void createMovableRect(int rectWidth, int rectHeight) {

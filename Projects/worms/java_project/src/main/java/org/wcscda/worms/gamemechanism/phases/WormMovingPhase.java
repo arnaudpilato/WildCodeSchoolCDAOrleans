@@ -64,6 +64,10 @@ public class WormMovingPhase extends AbstractPhase {
     }
 
     private void moveWorm(double angle) {
+        if (Helper.getPC().getFirstStandingOn(Helper.getActiveWorm()).isEmpty()) {
+            return;
+        }
+
         if (!Helper.getActiveWorm().isStandingOn(Helper.getField().getShape())) {
             return;
         }

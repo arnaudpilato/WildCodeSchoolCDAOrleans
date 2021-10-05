@@ -29,12 +29,15 @@ public class ShotgunAmmo extends AbstractAmmo {
     super(EXPLOSION_RADIUS, EXPLOSION_DAMAGE);
     createMovableRect(HADOKEN_RECT_SIZE, HADOKEN_RECT_SIZE);
     getMovable().setDirection(angle);
+
     getMovable().setSpeed(10);
     try {
       new WormSoundPlayer().shotgunSound();
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
       e.printStackTrace();
     }
+
+    setInitialPosition();
   }
 
   @Override

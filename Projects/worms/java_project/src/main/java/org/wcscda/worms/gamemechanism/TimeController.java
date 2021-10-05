@@ -19,8 +19,11 @@ import org.wcscda.worms.board.Winner;
 import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
 import org.wcscda.worms.gamemechanism.phases.EndOfGamePhase;
 import org.wcscda.worms.gamemechanism.phases.WormMovingPhase;
+import org.wcscda.worms.gamemechanism.playerrecorder.KeyboardControllerPlayer;
+import org.wcscda.worms.gamemechanism.playerrecorder.KeyboardControllerRecorder;
 
 public class TimeController implements ActionListener {
+    private final KeyboardController keyboardController;
     private static TimeController instance;
     private PhysicalController board;
     private Timer timer;
@@ -33,11 +36,21 @@ public class TimeController implements ActionListener {
     public TimeController() {
         instance = this;
         initGame();
-
-        board.addKeyListener(new KeyboardController());
+        keyboardController = createController();
+        board.addKeyListener(keyboardController);
 
         timer = new Timer(Config.getClockDelay(), this);
         timer.start();
+    }
+
+    private KeyboardController createController() {
+        if (Config.getRecordGame()) {
+            return new KeyboardControllerRecorder(this.board);
+        } else if (Config.getPlayRecord()) {
+            return new KeyboardControllerPlayer();
+        } else {
+            return new KeyboardController();
+        }
     }
 
     private void initGame() {
@@ -100,6 +113,12 @@ public class TimeController implements ActionListener {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+  public KeyboardController getKeyboardController() {
+    return keyboardController;
+
     }
 
     public void setNextWorm() {

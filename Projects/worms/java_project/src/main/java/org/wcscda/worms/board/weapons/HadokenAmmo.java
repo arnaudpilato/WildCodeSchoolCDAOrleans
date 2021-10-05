@@ -50,6 +50,8 @@ public class HadokenAmmo extends AbstractAmmo {
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
       e.printStackTrace();
     }
+
+    setInitialPosition();
   }
 
   @Override

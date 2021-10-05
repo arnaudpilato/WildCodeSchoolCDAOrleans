@@ -5,13 +5,14 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 
-import org.wcscda.worms.DrawHelper;
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+
+import org.wcscda.worms.utils.DrawHelper;
 
 public class Explosion extends AbstractDrawableElement {
   private static final int LIFE_DURATION = 18;

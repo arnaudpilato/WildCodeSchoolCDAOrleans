@@ -52,6 +52,8 @@ public class SuperGrenadeAmmo extends AbstractAmmo {
 
         initialX = Helper.getWormX();
         initialY = Helper.getWormY();
+
+        setInitialPosition();
     }
 
     protected void createMovableRect(int rectWidth, int rectHeight) {
