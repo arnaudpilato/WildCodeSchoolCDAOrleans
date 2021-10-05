@@ -11,6 +11,7 @@ import org.wcscda.worms.Config;
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.Player;
 import org.wcscda.worms.Worm;
+import org.wcscda.worms.board.AmmunitionBox;
 import org.wcscda.worms.board.Score;
 import org.wcscda.worms.board.Winner;
 import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
@@ -26,6 +27,9 @@ public class TimeController implements ActionListener {
     private AbstractPhase currentPhase;
     private int phaseCount = 0;
     private boolean delayedSetNextWorm;
+    private Random rand = new Random();
+    private int randX = rand.nextInt(1150);
+//    private int randY = rand.nextInt(300);
 
     public TimeController() {
         instance = this;
@@ -85,6 +89,8 @@ public class TimeController implements ActionListener {
         doSetNextWorm();
         Score score = new Score();
         score.setPlayers(playerName);
+        AmmunitionBox ammunition = new AmmunitionBox(randX,10, 80 ,55);
+
     }
 
     public void setNextWorm() {

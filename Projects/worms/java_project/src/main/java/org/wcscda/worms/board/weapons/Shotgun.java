@@ -11,7 +11,7 @@ import org.wcscda.worms.gamemechanism.phases.*;
 public class Shotgun extends AbstractWeapon {
   private static final String imagePath = "src/resources/weapons/Shotgun_small.png";
   private static Image image = null;
-  private int nbFiredShoots = 0;
+  private static int nbFiredShoots = 0;
 
 
   private static void initImages() {

@@ -61,6 +61,9 @@ public abstract class Board extends JPanel {
         if (isGameFinished()) {
             Helper.getTC().setCurrentPhase(new EndOfGamePhase());
         }
+
+
+
         repaint();
         doMoves();
 
