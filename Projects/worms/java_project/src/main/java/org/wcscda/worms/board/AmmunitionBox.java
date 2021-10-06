@@ -13,6 +13,7 @@ public class AmmunitionBox extends ARBEWithGravity {
     private static final String imagePath2 = "src/resources/ammunitionBox.png";
     private static Image img;
     private int ammunitions = 5;
+    private int ammunitionsSuperGrenade = 1;
     private Random rand = new Random();
     private int randX = rand.nextInt(1150);
     private boolean nextOneCreated = false;
@@ -64,6 +65,14 @@ public class AmmunitionBox extends ARBEWithGravity {
     public static int random_int(int Min, int Max)
     {
         return (int) (Math.random()*(Max-Min))+Min;
+    }
+
+    public int getAmmunitionsSuperGrenade() {
+        return ammunitionsSuperGrenade;
+    }
+
+    public void setAmmunitionsSuperGrenade(int ammunitionsSuperGrenade) {
+        this.ammunitionsSuperGrenade = ammunitionsSuperGrenade;
     }
 
     @Override
