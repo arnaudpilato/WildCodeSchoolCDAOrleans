@@ -32,7 +32,7 @@ public class WormField extends AbstractBoardElement {
     int[] randomSplineHeight = new int[nbSplines];
 
     for (int i = 0; i < nbSplines; ++i) {
-      randomSplineHeight[i] = (int) ((0.25 + 0.05 * RandomGenerator.nextDouble()) * height);
+      randomSplineHeight[i] = (int) ((0.25 + 0.5 * RandomGenerator.nextDouble()) * height);
     }
 
     Path2D p = new Path2D.Double();
