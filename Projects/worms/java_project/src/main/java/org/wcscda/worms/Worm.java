@@ -158,6 +158,7 @@ public class Worm extends ARBEWithGravity implements IVisitable {
 
     if (movable instanceof AmmunitionBox) {
       AmmunitionBox box = (AmmunitionBox) movable;
+      this.setAmmunition(box.getAmmunitions());
       box.removeSelf();
     }
     setPosition(prevPosition);

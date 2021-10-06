@@ -12,7 +12,7 @@ public class AmmunitionBox extends ARBEWithGravity {
     private static final String imagePath = "src/resources/parachuteBox.png";
     private static final String imagePath2 = "src/resources/ammunitionBox.png";
     private static Image img;
-    private int ammunitions = 0;
+    private int ammunitions = 5;
     private Random rand = new Random();
     private int randX = rand.nextInt(1150);
     private boolean nextOneCreated = false;
