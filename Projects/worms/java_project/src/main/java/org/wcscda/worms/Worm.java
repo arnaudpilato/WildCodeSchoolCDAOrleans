@@ -152,8 +152,15 @@ public class Worm extends ARBEWithGravity implements IVisitable {
     this.isUserMoving = isUserMoving;
   }
 
+
   @Override
   public void collideWith(AbstractBoardElement movable, Point2D prevPosition) {
+
+    if (movable instanceof AmmunitionBox) {
+      AmmunitionBox box = (AmmunitionBox) movable;
+      this.setAmmunition(box.getAmmunitions());
+      box.removeSelf();
+    }
     setPosition(prevPosition);
   }
 
