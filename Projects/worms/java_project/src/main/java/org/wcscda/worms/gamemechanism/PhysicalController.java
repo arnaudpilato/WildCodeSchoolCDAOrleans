@@ -105,8 +105,7 @@ public class PhysicalController extends Board implements IMovableVisitor {
     if (worm.isUserMoving()) {
       boolean moveIsPossibleWithGravity = doGravityUserMove(worm);
       if (!moveIsPossibleWithGravity) {
-        worm.setPosition(prevPosition);
-        return;
+        worm.collideWith(getFirstCollidingWith(worm).get(), prevPosition);
       }
     }
     doGravity(worm);

@@ -15,9 +15,11 @@ public class AmmunitionBox extends ARBEWithGravity {
     private int ammunitions = 0;
     private Random rand = new Random();
     private int randX = rand.nextInt(1150);
+    private boolean nextOneCreated = false;
 
     public AmmunitionBox(int x, int y, int rectWidth, int rectHeight) {
         super(x, y, rectWidth, rectHeight);
+
     }
 
 
@@ -50,6 +52,9 @@ public class AmmunitionBox extends ARBEWithGravity {
         }
         g.drawImage(img, getX()-50, getY()-145, io);
 
+    }
+    public void remove() {
+        removeSelf();
     }
 
     @Override
