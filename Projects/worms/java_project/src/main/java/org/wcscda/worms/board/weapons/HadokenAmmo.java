@@ -71,4 +71,5 @@ public class HadokenAmmo extends AbstractAmmo {
       g.drawImage(hadoken[Helper.getClock() % hadoken.length], (int) getMovable().getCenterX() - 20, (int) getMovable().getCenterY() - 22, io);
     }
   }
+
 }

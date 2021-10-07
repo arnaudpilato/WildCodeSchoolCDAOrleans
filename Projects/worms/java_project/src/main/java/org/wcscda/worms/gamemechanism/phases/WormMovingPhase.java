@@ -1,7 +1,9 @@
 package org.wcscda.worms.gamemechanism.phases;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 
 import org.wcscda.worms.Config;
 import org.wcscda.worms.Helper;
@@ -9,6 +11,11 @@ import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.weapons.AbstractWeapon;
 import org.wcscda.worms.board.weapons.GrenadeBanane;
 import org.wcscda.worms.board.weapons.Shotgun;
+import org.wcscda.worms.gamemechanism.KeyboardController;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import org.wcscda.worms.board.weapons.SuperGrenade;
 
 public class WormMovingPhase extends AbstractPhase {
@@ -37,6 +44,15 @@ public class WormMovingPhase extends AbstractPhase {
 
         if (key.equals("Down")) {
             moveWeapon(1);
+        }
+
+        if (key.equals("I")) {
+            Helper.getTC().setCurrentPhase(new ItemPhase());
+            try {
+                new WormSoundPlayer().openItemSound();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         if (key.equals("Space")) {

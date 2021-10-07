@@ -5,6 +5,7 @@ import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.ARBEWIthHandler;
 import org.wcscda.worms.board.ARBEWIthHandlerWithGravity;
 import org.wcscda.worms.board.ARBEWithGravity;
+import org.wcscda.worms.board.AbstractBoardElement;
 import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -12,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 
@@ -97,11 +99,11 @@ public class GrenadeAmmo extends AbstractAmmo {
 
     @Override
     protected void explode() {
-        super.explode();
-        try {
-            new WormSoundPlayer().grenadeSound();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-            e.printStackTrace();
-        }
+            super.explode();
+            try {
+                new WormSoundPlayer().grenadeSound();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+                e.printStackTrace();
+            }
     }
 }

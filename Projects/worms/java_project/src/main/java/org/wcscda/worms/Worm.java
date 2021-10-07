@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 
 import org.wcscda.worms.board.*;
 import org.wcscda.worms.gamemechanism.Board;
+import org.wcscda.worms.gamemechanism.StartGame;
 import org.wcscda.worms.gamemechanism.TimeController;
 import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
@@ -29,7 +30,6 @@ public class Worm extends ARBEWithGravity implements IVisitable {
           "src/resources/worm/worm-9.png"
   };
   public static boolean winner = false;
-
 
   public int getLife() {
     return life;
@@ -63,9 +63,6 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   }
 
   public static double numberOfDies = 0;
-
-
-
 
   private static void initImages() {
       for (int i = 0; i < wormFacings.length; i++) {
@@ -121,7 +118,8 @@ public class Worm extends ARBEWithGravity implements IVisitable {
 
     // Drawing the life
     g.setColor(player.getColor());
-    g.drawString(name, (int) getX(), (int) getY() - 30);
+    g.drawString(getName(), (int) getX(), (int) getY() - 30);
+
     g.drawString("" + getShownLife(), (int) getX(), (int) getY() - 15);
   }
 
@@ -180,11 +178,16 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   }
 
   public String getName() {
+    if(name == null) return "null";
     return name;
   }
 
   @Override
   public void takeDamage(int damage) {
+    if(Helper.getActivePlayer().isBeginner()) {
+      damage = (int) (damage * 1.25);
+    }
+
     life -= damage;
 
     try {

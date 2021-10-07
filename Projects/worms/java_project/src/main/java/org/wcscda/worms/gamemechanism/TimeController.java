@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
 import javax.swing.Timer;
 
 import org.wcscda.worms.Config;
@@ -44,10 +45,13 @@ public class TimeController implements ActionListener {
 
     public TimeController() {
         instance = this;
-        initGame();
+        board = new PhysicalController();
         keyboardController = createController();
+        StartGame initialize = new StartGame(this);
         board.addKeyListener(keyboardController);
+    }
 
+    /* package */ void postInitGame() {
         timer = new Timer(Config.getClockDelay(), this);
         timer.start();
     }
@@ -62,53 +66,29 @@ public class TimeController implements ActionListener {
         }
     }
 
-    private void initGame() {
-        board = new PhysicalController();
-        Map<String, String[]> teams = new HashMap<>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Saisissez le nombre de joueurs :");
-        int numberOfTeams = scanner.nextInt();
-        // Player[] players = new Player[numberOfTeams];
-        System.out.println("Saisissez le nombre de Worms :");
-        int numberOfWorms = scanner.nextInt();
-        //Worm[] worms = new Worm[numberOfWorms];
-        for (int i = 0; i < numberOfTeams; i++) {
-            System.out.println("Choisissez le nom de la team du joueur " + (i + 1) + " :");
-            String playerName = scanner.next();
-            // players[i] = createPlayer(playerName, Color.BLUE);
-            teams.put(playerName, new String[numberOfWorms]);
-            for (int j = 0; j < numberOfWorms; j++) {
-                System.out.println("Nom du joueur " + (j + 1) + " : ");
-                teams.get(playerName)[j] = scanner.next();
-                // worms[j] = players[i].createWorm(playerName);
-            }
-        }
-
+    public void initGame(String[]playerName, String[][] wormsName, Boolean beginner) {
         Random random = new Random();
+        Player[] player = new Player[playerName.length];
+        Worm[][] worms = new Worm[playerName.length][wormsName[0].length];
 
-        int j = 0;
-        Player[] playerName = new Player[numberOfTeams];
-        Worm[][] wormsName = new Worm[numberOfTeams][numberOfWorms];
-
-        for (Map.Entry<String, String[]> entry : teams.entrySet()) {
+        for (int i = 0; i < playerName.length; i++) {
             float r = random.nextFloat();
             float g = random.nextFloat();
             float b = random.nextFloat();
 
             Color randomColor = new Color(r, g, b);
 
-            String player = entry.getKey();
-            String[] worms = entry.getValue();
-
-            playerName[j] = createPlayer(player, randomColor);
-            for (int i = 0; i < worms.length; i++) {
-                wormsName[j][i] = playerName[j].createWorm(worms[i]);
-                board.wormInitialPlacement(wormsName[j][i]);
+            player[i] = createPlayer(playerName[i], randomColor);
+            player[0].setBeginner(beginner);
+            for (int j = 0; j < wormsName[i].length; j++) {
+                worms[i][j] = player[i].createWorm(wormsName[i][j]);
+                board.wormInitialPlacement(worms[i][j]);
             }
-            j++;
         }
+
         doSetNextWorm();
         Score score = new Score();
+
         score.setPlayers(playerName);
         AmmunitionBox box = new AmmunitionBox(500, -2000,60,50);
 //        box.onIterationBegin();
@@ -123,11 +103,13 @@ public class TimeController implements ActionListener {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        postInitGame();
     }
 
 
-  public KeyboardController getKeyboardController() {
-    return keyboardController;
+    public KeyboardController getKeyboardController() {
+        return keyboardController;
 
 
     }

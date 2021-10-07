@@ -9,6 +9,21 @@ public class Player {
   private final String name;
   private final Color color;
   private final ArrayList<Worm> worms = new ArrayList<Worm>();
+
+  public boolean isBeginner() {
+    return beginner;
+  }
+
+  private boolean beginner = false;
+
+  public void setBeginner(boolean beginner) {
+    this.beginner = beginner;
+  }
+
+  public void setCurrentWeapon(AbstractWeapon currentWeapon) {
+    this.currentWeapon = currentWeapon;
+  }
+
   private AbstractWeapon currentWeapon;
   private int currentWormIndex = 0;
 

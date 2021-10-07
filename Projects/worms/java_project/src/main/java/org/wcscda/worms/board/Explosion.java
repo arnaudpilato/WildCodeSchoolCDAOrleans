@@ -79,8 +79,8 @@ public class Explosion extends AbstractDrawableElement {
           "src/resources/super-explosion/big-explosion-30.png",
   };
 
-  private static final Image[] grenade = new Image[23];
-  private static final Image[] superGrenade = new Image[23];
+  private static final Image[] grenade = new Image[imageGrenadePath.length];
+  private static final Image[] superGrenade = new Image[imageSuperGrenadePath.length];
 
   private static void initImages() {
     for (int i = 0; i < imageGrenadePath.length; i++) {
