@@ -9,6 +9,11 @@ public class Player {
   private final String name;
   private final Color color;
   private final ArrayList<Worm> worms = new ArrayList<Worm>();
+
+  public void setCurrentWeapon(AbstractWeapon currentWeapon) {
+    this.currentWeapon = currentWeapon;
+  }
+
   private AbstractWeapon currentWeapon;
   private int currentWormIndex = 0;
 
@@ -77,7 +82,7 @@ public class Player {
   }
 
   public void initWeapon() {
-    currentWeapon = new GrenadeBanane();
+    currentWeapon = new Hadoken();
   }
 
   public boolean hasWorms() {

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
 import javax.swing.Timer;
 
 import org.wcscda.worms.Config;
@@ -32,6 +33,7 @@ public class TimeController implements ActionListener {
     private AbstractPhase currentPhase;
     private int phaseCount = 0;
     private boolean delayedSetNextWorm;
+    private boolean start = false;
 
     public TimeController() {
         instance = this;
@@ -54,65 +56,134 @@ public class TimeController implements ActionListener {
     }
 
     private void initGame() {
+
+
+
+
+
+
+
+
+
+
         board = new PhysicalController();
-        Map<String, String[]> teams = new HashMap<>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Saisissez le nombre de joueurs :");
-        int numberOfTeams = scanner.nextInt();
-        // Player[] players = new Player[numberOfTeams];
-        System.out.println("Saisissez le nombre de Worms :");
-        int numberOfWorms = scanner.nextInt();
-        //Worm[] worms = new Worm[numberOfWorms];
-        for (int i = 0; i < numberOfTeams; i++) {
-            System.out.println("Choisissez le nom de la team du joueur " + (i + 1) + " :");
-            String playerName = scanner.next();
-            // players[i] = createPlayer(playerName, Color.BLUE);
-            teams.put(playerName, new String[numberOfWorms]);
-            for (int j = 0; j < numberOfWorms; j++) {
-                System.out.println("Nom du joueur " + (j + 1) + " : ");
-                teams.get(playerName)[j] = scanner.next();
-                // worms[j] = players[i].createWorm(playerName);
-            }
+        StartGame initialize = new StartGame();
+
+//
+//        Map<String, String[]> teams = new HashMap<>();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Saisissez le nombre de joueurs :");
+//        int numberOfTeams = scanner.nextInt();
+//        // Player[] players = new Player[numberOfTeams];
+//        System.out.println("Saisissez le nombre de Worms :");
+//        int numberOfWorms = scanner.nextInt();
+//        //Worm[] worms = new Worm[numberOfWorms];
+//        for (int i = 0; i < numberOfTeams; i++) {
+//            System.out.println("Choisissez le nom de la team du joueur " + (i + 1) + " :");
+//            String playerName = scanner.next();
+//            // players[i] = createPlayer(playerName, Color.BLUE);
+//            teams.put(playerName, new String[numberOfWorms]);
+//            for (int j = 0; j < numberOfWorms; j++) {
+//                System.out.println("Nom du joueur " + (j + 1) + " : ");
+//                teams.get(playerName)[j] = scanner.next();
+//                // worms[j] = players[i].createWorm(playerName);
+//            }
+//        }
+//
+//        Random random = new Random();
+//
+//        int j = 0;
+//        Player[] playerName = new Player[numberOfTeams];
+//        Worm[][] wormsName = new Worm[numberOfTeams][numberOfWorms];
+//
+//        for (Map.Entry<String, String[]> entry : teams.entrySet()) {
+//            float r = random.nextFloat();
+//            float g = random.nextFloat();
+//            float b = random.nextFloat();
+//
+//            Color randomColor = new Color(r, g, b);
+//
+//            String player = entry.getKey();
+//            String[] worms = entry.getValue();
+//
+//            playerName[j] = createPlayer(player, randomColor);
+//            for (int i = 0; i < worms.length; i++) {
+//                wormsName[j][i] = playerName[j].createWorm(worms[i]);
+//                board.wormInitialPlacement(wormsName[j][i]);
+//            }
+//            j++;
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            Random random = new Random();
+            Player[] playerName = new Player[initialize.getNumberOfTeams()];
+            Worm[][] wormsName = new Worm[initialize.getNumberOfTeams()][initialize.getNumberOfWorms()];
+
+            for (int i = 0; i < playerName.length; i++) {
+                float r = random.nextFloat();
+                float g = random.nextFloat();
+                float b = random.nextFloat();
+
+                Color randomColor = new Color(r, g, b);
+
+                playerName[i] = createPlayer(initialize.getPlayers()[i], randomColor);
+                for (int j = 0; j < wormsName.length; j++) {
+                    wormsName[i][j] = playerName[i].createWorm(initialize.getWorms()[i][j]);
+                    board.wormInitialPlacement(wormsName[j][i]);
+                }
+
+
+
+
         }
 
-        Random random = new Random();
 
-        int j = 0;
-        Player[] playerName = new Player[numberOfTeams];
-        Worm[][] wormsName = new Worm[numberOfTeams][numberOfWorms];
 
-        for (Map.Entry<String, String[]> entry : teams.entrySet()) {
-            float r = random.nextFloat();
-            float g = random.nextFloat();
-            float b = random.nextFloat();
 
-            Color randomColor = new Color(r, g, b);
 
-            String player = entry.getKey();
-            String[] worms = entry.getValue();
 
-            playerName[j] = createPlayer(player, randomColor);
-            for (int i = 0; i < worms.length; i++) {
-                wormsName[j][i] = playerName[j].createWorm(worms[i]);
-                board.wormInitialPlacement(wormsName[j][i]);
-            }
-            j++;
-        }
-        doSetNextWorm();
+
+
+
+
+
+
+
+
+
+
+
+       doSetNextWorm();
         Score score = new Score();
-        score.setPlayers(playerName);
+       score.setPlayers(playerName);
 
-        try {
+     try {
             new WormSoundPlayer().startSound();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+       } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
-        }
+       }
 
-        try {
-            new WormSoundPlayer().ambientSound();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-            e.printStackTrace();
-        }
+       try {
+           new WormSoundPlayer().ambientSound();
+       } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+           e.printStackTrace();
+       }
+
+
+
+
+
     }
 
 

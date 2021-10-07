@@ -133,6 +133,26 @@ public class WormSoundPlayer {
     //clip.close();
   }
 
+  public void openItemSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    AudioInputStream audioInputStream =
+            AudioSystem.getAudioInputStream(new File("src/resources/sounds/item-open.wav").getAbsoluteFile());
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioInputStream);
+    clip.start();
+    //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
+    //clip.close();
+  }
+
+  public void cursorSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    AudioInputStream audioInputStream =
+            AudioSystem.getAudioInputStream(new File("src/resources/sounds/cursor.wav").getAbsoluteFile());
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioInputStream);
+    clip.start();
+    //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
+    //clip.close();
+  }
+
   public static WormSoundPlayer getWormSoundPlayer() {
     if (instance == null) {
       instance = new WormSoundPlayer();

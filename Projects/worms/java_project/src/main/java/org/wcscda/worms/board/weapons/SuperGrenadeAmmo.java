@@ -2,6 +2,7 @@ package org.wcscda.worms.board.weapons;
 
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.board.ARBEWIthHandlerWithGravity;
+import org.wcscda.worms.board.AbstractBoardElement;
 import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -9,6 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 
@@ -19,6 +21,7 @@ public class SuperGrenadeAmmo extends AbstractAmmo {
     private final double initialX;
     private final double initialY;
     private static final Image[] superGrenade = new Image[16];
+    private final int timer = Helper.getClock();
     private static final String[] imagePath = {
             "src/resources/super-grenade/grenade-1.png",
             "src/resources/super-grenade/grenade-2.png",
@@ -91,6 +94,13 @@ public class SuperGrenadeAmmo extends AbstractAmmo {
             new WormSoundPlayer().grenadeSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void colideWith(AbstractBoardElement movable, Point2D prevPosition) {
+        this.getMovable().setPosition(prevPosition);
+        if (Helper.getClock() >= timer + 100) {
+            super.colideWith(movable, prevPosition);
         }
     }
 }

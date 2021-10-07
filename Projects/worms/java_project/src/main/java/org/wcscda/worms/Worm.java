@@ -63,9 +63,6 @@ public class Worm extends ARBEWithGravity implements IVisitable {
 
   public static double numberOfDies = 0;
 
-
-
-
   private static void initImages() {
       for (int i = 0; i < wormFacings.length; i++) {
         wormImagesFacing[i] = new ImageIcon(wormFacings[i]).getImage().getScaledInstance(imageWidth, imageHeight, 0);
