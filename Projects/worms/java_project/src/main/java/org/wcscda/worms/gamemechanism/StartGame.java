@@ -17,7 +17,7 @@ public class StartGame extends AbstractDrawableElement {
     private boolean teamAndWormsMenu = false;
     private boolean nameOfWormsMenu = false;
 
-    private TimeController initialize = new TimeController();
+    private TimeController initialize;
 
     private int numberOfTeams = 1;
     private int numberOfWorms = 1;
@@ -85,7 +85,8 @@ public class StartGame extends AbstractDrawableElement {
         }
     }
 
-    public StartGame() {
+    public StartGame(TimeController tc) {
+        this.initialize = tc;
         JButton start = new JButton("Start Game");
         JPanel pnlButton = new JPanel();
         Helper.getPC().setLayout(null);
