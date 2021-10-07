@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class GrenadeBananeAmmo extends AbstractAmmo {
     private static final int EXPLOSION_RADIUS = 150;
-    private static final int EXPLOSION_DAMAGE = 15;
+    private static final int EXPLOSION_DAMAGE = 60;
     private static final int GRENADE_RECT_SIZE = 10;
     private final double initialX;
     private final double initialY;

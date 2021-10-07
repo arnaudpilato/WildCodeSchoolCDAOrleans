@@ -16,8 +16,8 @@ public class HadokenAmmo extends AbstractAmmo {
   private static final int HADOKEN_AMMO_RADIUS = 15;
   private static final int HADOKEN_RECT_SIZE = 30;
   private static final int EXPLOSION_RADIUS = 30;
-  private static final int EXPLOSION_DAMAGE = 30;
-  private static final int INITIAL_SPEED = 5;
+  private static final int EXPLOSION_DAMAGE = 15;
+  private static final int INITIAL_SPEED = 6;
   private static final String[] imagePath = {
           "src/resources/hadoken/hadoken-1.png",
           "src/resources/hadoken/hadoken-2.png",
@@ -62,13 +62,13 @@ public class HadokenAmmo extends AbstractAmmo {
 
     if (Helper.getActiveWorm().getDirection() > Math.PI / 2) {
       AffineTransform trans =
-              AffineTransform.getTranslateInstance(getMovable().getX() + 20, getMovable().getY());
+              AffineTransform.getTranslateInstance(getMovable().getX() + 55, getMovable().getY() - 8);
       trans.scale(-1, 1);
 
       g.drawImage(hadoken[Helper.getClock() % hadoken.length], trans, io);
 
     } else {
-      g.drawImage(hadoken[Helper.getClock() % hadoken.length], (int) getMovable().getCenterX() - 20, (int) getMovable().getCenterY() - 22, io);
+      g.drawImage(hadoken[Helper.getClock() % hadoken.length], (int) getMovable().getCenterX() - 40, (int) getMovable().getCenterY() - 22, io);
     }
   }
 
