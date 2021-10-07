@@ -153,6 +153,36 @@ public class WormSoundPlayer {
     //clip.close();
   }
 
+  public void chooseSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    AudioInputStream audioInputStream =
+            AudioSystem.getAudioInputStream(new File("src/resources/sounds/choose.wav").getAbsoluteFile());
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioInputStream);
+    clip.start();
+    //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
+    //clip.close();
+  }
+
+  public void themeSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    AudioInputStream audioInputStream =
+            AudioSystem.getAudioInputStream(new File("src/resources/sounds/theme.wav").getAbsoluteFile());
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioInputStream);
+    clip.start();
+    //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
+    //clip.close();
+  }
+
+  public void numberSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    AudioInputStream audioInputStream =
+            AudioSystem.getAudioInputStream(new File("src/resources/sounds/number.wav").getAbsoluteFile());
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioInputStream);
+    clip.start();
+    //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
+    //clip.close();
+  }
+
   public static WormSoundPlayer getWormSoundPlayer() {
     if (instance == null) {
       instance = new WormSoundPlayer();

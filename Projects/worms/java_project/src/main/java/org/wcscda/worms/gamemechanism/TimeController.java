@@ -88,8 +88,8 @@ public class TimeController implements ActionListener {
 
         doSetNextWorm();
         Score score = new Score();
+        score.setPlayers(player);
 
-        score.setPlayers(playerName);
         AmmunitionBox box = new AmmunitionBox(500, -2000,60,50);
 //        box.onIterationBegin();
         try {
@@ -136,8 +136,6 @@ public class TimeController implements ActionListener {
         if (!getActivePlayer().hasWorms()) {
             return;
         }
-
-
 
         int nbLooser = 0;
         for (int i = 0; i < Helper.getTC().getPlayers().size(); i++) {

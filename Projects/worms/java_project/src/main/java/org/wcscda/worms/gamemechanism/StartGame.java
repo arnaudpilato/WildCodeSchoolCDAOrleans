@@ -5,12 +5,15 @@ import org.wcscda.worms.Player;
 import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.AbstractDrawableElement;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -106,6 +109,11 @@ public class StartGame extends AbstractDrawableElement {
                 teamAndWormsMenu = true;
                 start.setVisible(false);
                 newGame();
+                try {
+                    new WormSoundPlayer().chooseSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -139,6 +147,11 @@ public class StartGame extends AbstractDrawableElement {
                 newGame.setVisible(false);
                 options.setVisible(false);
                 newGame();
+                try {
+                    new WormSoundPlayer().chooseSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -344,6 +357,11 @@ public class StartGame extends AbstractDrawableElement {
                 player3.setForeground(Color.black);
 
                 numberOfTeams = 1;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -355,6 +373,11 @@ public class StartGame extends AbstractDrawableElement {
                 player3.setForeground(Color.black);
 
                 numberOfTeams = 2;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -366,6 +389,11 @@ public class StartGame extends AbstractDrawableElement {
                 player3.setForeground(Color.green);
 
                 numberOfTeams = 3;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -379,6 +407,11 @@ public class StartGame extends AbstractDrawableElement {
                 worms5.setForeground(Color.black);
 
                 numberOfWorms = 1;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -392,6 +425,11 @@ public class StartGame extends AbstractDrawableElement {
                 worms5.setForeground(Color.black);
 
                 numberOfWorms = 2;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -405,6 +443,11 @@ public class StartGame extends AbstractDrawableElement {
                 worms5.setForeground(Color.black);
 
                 numberOfWorms = 3;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -418,6 +461,11 @@ public class StartGame extends AbstractDrawableElement {
                 worms5.setForeground(Color.black);
 
                 numberOfWorms = 4;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -431,6 +479,11 @@ public class StartGame extends AbstractDrawableElement {
                 worms5.setForeground(Color.green);
 
                 numberOfWorms = 5;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -440,6 +493,11 @@ public class StartGame extends AbstractDrawableElement {
                 yes.setForeground(Color.green);
                 no.setForeground(Color.black);
                 beginner = true;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -449,6 +507,11 @@ public class StartGame extends AbstractDrawableElement {
                 no.setForeground(Color.green);
                 yes.setForeground(Color.black);
                 beginner = false;
+                try {
+                    new WormSoundPlayer().numberSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -477,6 +540,11 @@ public class StartGame extends AbstractDrawableElement {
 
                 validate.setVisible(false);
                 nameTeam1(players, worms);
+                try {
+                    new WormSoundPlayer().chooseSound();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -576,6 +644,11 @@ public class StartGame extends AbstractDrawableElement {
                     initialize.initGame(players, worms, beginner);
                 } else {
                     nameTeam2(players, worms);
+                    try {
+                        new WormSoundPlayer().chooseSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
@@ -676,6 +749,11 @@ public class StartGame extends AbstractDrawableElement {
                     initialize.initGame(players, worms, beginner);
                 } else {
                     nameTeam3(players, worms);
+                    try {
+                        new WormSoundPlayer().chooseSound();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
