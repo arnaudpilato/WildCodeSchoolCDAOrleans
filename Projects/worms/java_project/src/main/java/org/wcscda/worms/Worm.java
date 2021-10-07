@@ -117,7 +117,8 @@ public class Worm extends ARBEWithGravity implements IVisitable {
 
     // Drawing the life
     g.setColor(player.getColor());
-    g.drawString(name, (int) getX(), (int) getY() - 30);
+    g.drawString(getName(), (int) getX(), (int) getY() - 30);
+
     g.drawString("" + getShownLife(), (int) getX(), (int) getY() - 15);
   }
 
@@ -160,6 +161,7 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   }
 
   public String getName() {
+    if(name == null) return "null";
     return name;
   }
 

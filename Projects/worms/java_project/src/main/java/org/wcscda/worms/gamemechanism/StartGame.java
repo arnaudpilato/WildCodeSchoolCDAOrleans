@@ -22,8 +22,17 @@ public class StartGame extends AbstractDrawableElement {
     private int numberOfTeams = 1;
     private int numberOfWorms = 1;
 
-    private final String[] players = new String[numberOfTeams];
-    private final String[][] worms = new String[numberOfTeams][numberOfWorms + 1];
+
+
+    private boolean background = true;
+
+
+
+
+
+
+    //private final String[] players = new String[numberOfTeams];
+    //private final String[][] worms = new String[numberOfTeams][numberOfWorms];
 
     private final Icon iconValidate = new ImageIcon("src/resources/validate.png");
 
@@ -50,8 +59,8 @@ public class StartGame extends AbstractDrawableElement {
     private static Image imageBackground = null;
     private static Image imageNumberOfPlayers = null;
     private static Image imageNumberOfWorms = null;
-    private static Image[] nameOfPlayer = new Image[4];
-    private static Image[] numbers = new Image[5];
+    private static final Image[] nameOfPlayer = new Image[4];
+    private static final Image[] numbers = new Image[5];
 
     public int getNumberOfTeams() {
         return numberOfTeams;
@@ -61,13 +70,13 @@ public class StartGame extends AbstractDrawableElement {
         return numberOfWorms;
     }
 
-    public String[] getPlayers() {
+    /*public String[] getPlayers() {
         return players;
     }
 
     public String[][] getWorms() {
         return worms;
-    }
+    }*/
 
     private static void initImages() {
         image = new ImageIcon(imagePath1).getImage().getScaledInstance(1200, 800, 0);
@@ -239,6 +248,8 @@ public class StartGame extends AbstractDrawableElement {
         validate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String[] players = new String[numberOfTeams];
+                String[][] worms = new String[numberOfTeams][numberOfWorms];
                 teamAndWormsMenu = false;
                 nameOfWormsMenu = true;
                 addPlayer.setVisible(false);
@@ -246,12 +257,12 @@ public class StartGame extends AbstractDrawableElement {
                 addWorm.setVisible(false);
                 lessWorm.setVisible(false);
                 validate.setVisible(false);
-                nameTeam1();
+                nameTeam1(players, worms);
             }
         });
     }
 
-    public void nameTeam1() {
+    public void nameTeam1(String[] players,String[][] worms) {
         JPanel pnlButton = new JPanel();
         Helper.getPC().setLayout(null);
         pnlButton.setLayout(null);
@@ -272,8 +283,9 @@ public class StartGame extends AbstractDrawableElement {
         setNameOfPlayer1.setForeground(Color.GREEN);
         setNameOfPlayer1.setLocation(50, 300);
         setNameOfPlayer1.setMargin(new Insets(0, 10, 0, 0));
-        Helper.getPC().add(setNameOfPlayer1);
         players[0] = setNameOfPlayer1.getText();
+        Helper.getPC().add(setNameOfPlayer1);
+
 
         //Nom du ver 1
         JTextArea nameOfWorm1 = new JTextArea("Michel");
@@ -282,39 +294,40 @@ public class StartGame extends AbstractDrawableElement {
         worms[0][0] = nameOfWorm1.getText();
         Helper.getPC().add(nameOfWorm1);
 
-        // Nom de ver 2
-        if (numberOfWorms == 2) {
-            JTextArea nameOfWorm2 = new JTextArea("Roger");
-            nameOfWorm2.setSize(200, 40);
-            nameOfWorm2.setLocation(500, 350);
-            worms[0][1] = nameOfWorm2.getText();
+        // Nom du ver 2
+        JTextArea nameOfWorm2 = new JTextArea("Roger");
+        nameOfWorm2.setSize(200, 40);
+        nameOfWorm2.setLocation(500, 350);
+        if (numberOfWorms >= 2) {
             Helper.getPC().add(nameOfWorm2);
+            worms[0][1] = nameOfWorm2.getText();
         }
 
-        // Nom de ver 2
-        if (numberOfWorms == 3) {
-            JTextArea nameOfWorm3 = new JTextArea("Denis");
-            nameOfWorm3.setSize(200, 40);
-            nameOfWorm3.setLocation(500, 400);
-            //worms[0][2] = nameOfWorm3.getText();
-            Helper.getPC().add(nameOfWorm3);
+        // Nom du ver 3
+        JTextArea nameOfWorm3 = new JTextArea("Denis");
+        nameOfWorm3.setSize(200, 40);
+        nameOfWorm3.setLocation(500, 400);
+        if (numberOfWorms >= 3) {
+        Helper.getPC().add(nameOfWorm3);
+            worms[0][2] = nameOfWorm3.getText();
         }
 
-        // Nom de
-        if (numberOfWorms == 4) {
-            JTextArea nameOfWorm4 = new JTextArea("Bernard");
-            nameOfWorm4.setSize(200, 40);
-            nameOfWorm4.setLocation(500, 450);
-            //worms[0][3] = nameOfWorm4.getText();
+        // Nom du ver 4
+        JTextArea nameOfWorm4 = new JTextArea("Bernard");
+        nameOfWorm4.setSize(200, 40);
+        nameOfWorm4.setLocation(500, 450);
+        if (numberOfWorms >= 4) {
             Helper.getPC().add(nameOfWorm4);
+            worms[0][3] = nameOfWorm4.getText();
         }
 
-        if (numberOfWorms == 5) {
-            JTextArea nameOfWorm5 = new JTextArea("Alice");
-            nameOfWorm5.setSize(200, 40);
-            nameOfWorm5.setLocation(500, 500);
-            //worms[0][4] = nameOfWorm5.getText();
+        // Nom du ver 5
+        JTextArea nameOfWorm5 = new JTextArea("Alice");
+        nameOfWorm5.setSize(200, 40);
+        nameOfWorm5.setLocation(500, 500);
+        if (numberOfWorms >= 5) {
             Helper.getPC().add(nameOfWorm5);
+            worms[0][4] = nameOfWorm5.getText();
         }
 
 
@@ -333,12 +346,119 @@ public class StartGame extends AbstractDrawableElement {
         validate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(players[0]);
-                /*for (JTextArea essai : essai1) {
-                    System.out.println(essai.getText());
-                }*/
+                background = false;
+                setNameOfPlayer1.setVisible(false);
+                nameOfWorm1.setVisible(false);
+                nameOfWorm2.setVisible(false);
+                nameOfWorm3.setVisible(false);
+                nameOfWorm4.setVisible(false);
+                nameOfWorm5.setVisible(false);
+                validate.setVisible(false);
+
+                if (numberOfTeams == 1) {
+                    //initialize.setPlayerName(players);
+                   // initialize.setWormsName(worms);
+                    initialize.initGame( players, worms);
+                } else {
+
+                }
             }
         });
+    }
+
+    public void nameTeam2(String[] players,String[][] worms) {
+        JPanel pnlButton = new JPanel();
+        Helper.getPC().setLayout(null);
+        pnlButton.setLayout(null);
+        pnlButton.setLocation(0,0);
+
+        // Boutton de validation
+        JButton validate = new JButton(iconValidate);
+        validate.setSize(171,34);
+        validate.setLocation(500,600);
+        validate.setBorderPainted(false);
+        pnlButton.add(validate);
+        Helper.getPC().add(validate);
+
+        // Nom de la team 1
+        JTextArea setNameOfPlayer1 = new JTextArea("BROCOLI");
+        setNameOfPlayer1.setSize(300, 40);
+        setNameOfPlayer1.setFont(new Font("Roboto", Font.BOLD, 20));
+        setNameOfPlayer1.setForeground(Color.GREEN);
+        setNameOfPlayer1.setLocation(50, 300);
+        setNameOfPlayer1.setMargin(new Insets(0, 10, 0, 0));
+        players[0] = setNameOfPlayer1.getText();
+        Helper.getPC().add(setNameOfPlayer1);
+
+
+        /*//Nom du ver 1
+        JTextArea nameOfWorm1 = new JTextArea("Michel");
+        nameOfWorm1.setSize(300, 40);
+        nameOfWorm1.setLocation(500, 300);
+        worms[0][0] = nameOfWorm1.getText();
+        Helper.getPC().add(nameOfWorm1);
+
+        // Nom de ver 2
+        if (numberOfWorms >= 2) {
+            JTextArea nameOfWorm2 = new JTextArea("Roger");
+            nameOfWorm2.setSize(200, 40);
+            nameOfWorm2.setLocation(500, 350);
+            worms[0][1] = nameOfWorm2.getText();
+            Helper.getPC().add(nameOfWorm2);
+        }
+
+        // Nom de ver 2
+        if (numberOfWorms >= 3) {
+            JTextArea nameOfWorm3 = new JTextArea("Denis");
+            nameOfWorm3.setSize(200, 40);
+            nameOfWorm3.setLocation(500, 400);
+            worms[0][2] = nameOfWorm3.getText();
+            Helper.getPC().add(nameOfWorm3);
+        }
+
+        if (numberOfWorms >= 4) {
+            JTextArea nameOfWorm4 = new JTextArea("Bernard");
+            nameOfWorm4.setSize(200, 40);
+            nameOfWorm4.setLocation(500, 450);
+            worms[0][3] = nameOfWorm4.getText();
+            Helper.getPC().add(nameOfWorm4);
+        }
+
+        if (numberOfWorms >= 5) {
+            JTextArea nameOfWorm5 = new JTextArea("Alice");
+            nameOfWorm5.setSize(200, 40);
+            nameOfWorm5.setLocation(500, 500);
+            //worms[0][4] = nameOfWorm5.getText();
+            Helper.getPC().add(nameOfWorm5);
+        }
+
+
+
+
+        /*for (int i = 0; i < numberOfWorms; i++) {
+            //JTextArea a = new JTextArea();
+            essai1[i].setSize(300, 40);
+            essai1[i].setLocation(300, 50 + essai);
+            essai1[i].getText();
+            Helper.getPC().add(essai1[i]);
+            essai += 100;
+        }
+
+        // Bouton validation
+        validate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setNameOfPlayer1.setVisible(false);
+                nameOfWorm1.setVisible(false);
+                if (numberOfTeams == 1) {
+                    initialize.setPlayerName(players);
+                    initialize.setWormsName(worms);
+                    initialize.initGame();
+                } else {
+
+                }
+            }
+        });*/
     }
 
 
@@ -348,23 +468,25 @@ public class StartGame extends AbstractDrawableElement {
             initImages();
         }
 
-        g.drawImage(image, 0,0, io);
+        if (background == true) {
+            g.drawImage(image, 0,0, io);
 
-        if (teamAndWormsMenu) {
-            // Image de fond
-            //g.drawImage(imageBackground, 200, 200, io);
+            if (teamAndWormsMenu) {
+                // Image de fond
+                //g.drawImage(imageBackground, 200, 200, io);
 
-            // Ajouter des joueurs
-            g.drawImage(imageNumberOfPlayers, 380, 250, io);
-            g.drawImage(numbers[numberOfTeams - 1], 560, 320, io);
+                // Ajouter des joueurs
+                g.drawImage(imageNumberOfPlayers, 380, 250, io);
+                g.drawImage(numbers[numberOfTeams - 1], 560, 320, io);
 
-            // Ajouter des worms
-            g.drawImage(imageNumberOfWorms, 400, 430, io);
-            g.drawImage(numbers[numberOfWorms - 1], 560, 500, io);
-        }
+                // Ajouter des worms
+                g.drawImage(imageNumberOfWorms, 400, 430, io);
+                g.drawImage(numbers[numberOfWorms - 1], 560, 500, io);
+            }
 
-        if (nameOfWormsMenu) {
-            g.drawImage(nameOfPlayer[0], 420, 250, io);
+            if (nameOfWormsMenu) {
+                g.drawImage(nameOfPlayer[0], 420, 250, io);
+            }
         }
     }
 }

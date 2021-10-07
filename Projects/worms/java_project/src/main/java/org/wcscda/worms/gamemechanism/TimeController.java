@@ -35,14 +35,31 @@ public class TimeController implements ActionListener {
     private boolean delayedSetNextWorm;
     private boolean start = false;
 
+    /*public void setPlayerName(String[] playerName) {
+        this.playerName = playerName;
+    }
+
+    String[] playerName;
+
+    public void setWormsName(String[][] wormsName) {
+        this.wormsName = wormsName;
+    }
+
+    public void setActivePlayerIndex(int activePlayerIndex) {
+        this.activePlayerIndex = activePlayerIndex;
+    }
+
+    String[][] wormsName;*/
+
     public TimeController() {
         instance = this;
-        initGame();
+        board = new PhysicalController();
         keyboardController = createController();
-
-        void po
+        StartGame initialize = new StartGame(this);
         board.addKeyListener(keyboardController);
+    }
 
+    /* package */ void postInitGame() {
         timer = new Timer(Config.getClockDelay(), this);
         timer.start();
     }
@@ -57,19 +74,9 @@ public class TimeController implements ActionListener {
         }
     }
 
-    private void initGame() {
+    public void initGame(String[]playerName, String[][] wormsName ) {
 
 
-
-
-
-
-
-
-
-
-        board = new PhysicalController();
-        StartGame initialize = new StartGame(this);
 
 //
 //        Map<String, String[]> teams = new HashMap<>();
@@ -128,26 +135,22 @@ public class TimeController implements ActionListener {
 
 
 
-            Random random = new Random();
-            Player[] playerName = new Player[initialize.getNumberOfTeams()];
-            Worm[][] wormsName = new Worm[initialize.getNumberOfTeams()][initialize.getNumberOfWorms()];
+        Random random = new Random();
+        Player[] player = new Player[playerName.length];
+        Worm[][] worms = new Worm[playerName.length][wormsName[0].length];
 
-            for (int i = 0; i < playerName.length; i++) {
-                float r = random.nextFloat();
-                float g = random.nextFloat();
-                float b = random.nextFloat();
+        for (int i = 0; i < playerName.length; i++) {
+            float r = random.nextFloat();
+            float g = random.nextFloat();
+            float b = random.nextFloat();
 
-                Color randomColor = new Color(r, g, b);
+            Color randomColor = new Color(r, g, b);
 
-                playerName[i] = createPlayer(initialize.getPlayers()[i], randomColor);
-                for (int j = 0; j < wormsName.length; j++) {
-                    wormsName[i][j] = playerName[i].createWorm(initialize.getWorms()[i][j]);
-                    board.wormInitialPlacement(wormsName[j][i]);
-                }
-
-
-
-
+            player[i] = createPlayer(playerName[i], randomColor);
+            for (int j = 0; j < wormsName[i].length; j++) {
+                worms[i][j] = player[i].createWorm(wormsName[i][j]);
+                board.wormInitialPlacement(worms[i][j]);
+            }
         }
 
 
@@ -166,21 +169,21 @@ public class TimeController implements ActionListener {
 
 
 
-       doSetNextWorm();
+        doSetNextWorm();
         Score score = new Score();
-       score.setPlayers(playerName);
+        score.setPlayers(player);
 
-     try {
+        try {
             new WormSoundPlayer().startSound();
-       } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
             e.printStackTrace();
-       }
+        }
 
-       try {
-           new WormSoundPlayer().ambientSound();
-       } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
-           e.printStackTrace();
-       }
+        try {
+            new WormSoundPlayer().ambientSound();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
 
@@ -189,8 +192,8 @@ public class TimeController implements ActionListener {
     }
 
 
-  public KeyboardController getKeyboardController() {
-    return keyboardController;
+    public KeyboardController getKeyboardController() {
+        return keyboardController;
 
     }
 
