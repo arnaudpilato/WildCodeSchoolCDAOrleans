@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ShotgunAmmo extends AbstractAmmo {
   private static final int EXPLOSION_RADIUS = 30;
-  private static final int EXPLOSION_DAMAGE = 15;
+  private static final int EXPLOSION_DAMAGE = 30;
   private static final int HADOKEN_RECT_SIZE = 10;
   private static final String imagePathBullet = "src/resources/weapons/bullet.png";
   private static final String imagePathShotgun = "src/resources/weapons/Shotgun_small.png";
