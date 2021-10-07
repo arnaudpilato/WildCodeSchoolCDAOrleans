@@ -9,12 +9,14 @@ import org.wcscda.worms.Config;
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.Worm;
 import org.wcscda.worms.board.weapons.AbstractWeapon;
+import org.wcscda.worms.board.weapons.GrenadeBanane;
 import org.wcscda.worms.board.weapons.Shotgun;
 import org.wcscda.worms.gamemechanism.KeyboardController;
 import org.wcscda.worms.gamemechanism.WormSoundPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import org.wcscda.worms.board.weapons.SuperGrenade;
 
 public class WormMovingPhase extends AbstractPhase {
     private static final double WORM_STEP_SPEED = 3.0;
@@ -55,9 +57,15 @@ public class WormMovingPhase extends AbstractPhase {
 
         if (key.equals("Space")) {
             System.out.println("Ammunition : " + Helper.getActiveWorm().getAmmunition());
-            if ((Helper.getActivePlayer().getCurrentWeapon() instanceof Shotgun) && (Helper.getActiveWorm().getAmmunition() < 1)) {
+            System.out.println("Munition SP:" + Helper.getActiveWorm().getAmmunitionSuperGrenade());
+            if ((Helper.getActivePlayer().getCurrentWeapon() instanceof Shotgun) &&
+                    (Helper.getActiveWorm().getAmmunition() < 1)) {
                 Helper.getActivePlayer().changeWeapon();
-            }else {
+            } else {
+                if ((Helper.getActivePlayer().getCurrentWeapon() instanceof GrenadeBanane) &&
+                        (Helper.getActiveWorm().getAmmunitionSuperGrenade() == 1)) {
+                    Helper.getActiveWorm().setAmmunitionSuperGrenade(Helper.getActiveWorm().getAmmunitionSuperGrenade() - 1);
+                }
                 Helper.getCurrentWeapon().fire();
             }
 
@@ -65,6 +73,11 @@ public class WormMovingPhase extends AbstractPhase {
 
         if (key.equals("W")) {
             Helper.getActivePlayer().changeWeapon();
+            System.out.println(Helper.getActivePlayer().getCurrentWeapon() + " :" + Helper.getActiveWorm().getAmmunitionSuperGrenade());
+            if ((Helper.getActivePlayer().getCurrentWeapon() instanceof GrenadeBanane) &&
+                    (Helper.getActiveWorm().getAmmunitionSuperGrenade() == 0)) {
+                Helper.getActivePlayer().changeWeapon();
+            }
         }
     }
 

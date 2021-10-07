@@ -52,6 +52,7 @@ public class Worm extends ARBEWithGravity implements IVisitable {
   private final Player player;
   private boolean isUserMoving;
   private int ammunition = 3 ;
+  private int ammunitionSuperGrenade = 0 ;
 
   public int getAmmunition() {
     return ammunition;
@@ -150,8 +151,24 @@ public class Worm extends ARBEWithGravity implements IVisitable {
     this.isUserMoving = isUserMoving;
   }
 
+
+  public int getAmmunitionSuperGrenade() {
+    return ammunitionSuperGrenade;
+  }
+
+  public void setAmmunitionSuperGrenade(int ammunitionSuperGrenade) {
+    this.ammunitionSuperGrenade = ammunitionSuperGrenade;
+  }
+
   @Override
   public void collideWith(AbstractBoardElement movable, Point2D prevPosition) {
+
+    if (movable instanceof AmmunitionBox) {
+      AmmunitionBox box = (AmmunitionBox) movable;
+      this.setAmmunition(box.getAmmunitions());
+      this.setAmmunitionSuperGrenade(box.getAmmunitionsSuperGrenade());
+      box.removeSelf();
+    }
     setPosition(prevPosition);
   }
 

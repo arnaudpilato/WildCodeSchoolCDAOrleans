@@ -30,7 +30,9 @@ public class Config {
   }
 
   public static boolean isDebug() {
-    return getConfig().prop.getProperty("app.debug").equals("1");
+
+    return config.prop.getProperty("app.debug").equals("1");
+
   }
 
   public static int getClockDelay() {

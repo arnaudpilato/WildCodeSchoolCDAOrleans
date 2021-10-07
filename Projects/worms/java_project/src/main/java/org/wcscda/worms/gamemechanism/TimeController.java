@@ -15,6 +15,7 @@ import org.wcscda.worms.Config;
 import org.wcscda.worms.Helper;
 import org.wcscda.worms.Player;
 import org.wcscda.worms.Worm;
+import org.wcscda.worms.board.AmmunitionBox;
 import org.wcscda.worms.board.Score;
 import org.wcscda.worms.board.Winner;
 import org.wcscda.worms.gamemechanism.phases.AbstractPhase;
@@ -33,6 +34,14 @@ public class TimeController implements ActionListener {
     private AbstractPhase currentPhase;
     private int phaseCount = 0;
     private boolean delayedSetNextWorm;
+
+
+    public static int random_int(int Min, int Max)
+    {
+        return (int) (Math.random()*(Max-Min))+Min;
+    }
+
+
 
     public TimeController() {
         instance = this;
@@ -79,8 +88,10 @@ public class TimeController implements ActionListener {
 
         doSetNextWorm();
         Score score = new Score();
-        score.setPlayers(player);
 
+        score.setPlayers(playerName);
+        AmmunitionBox box = new AmmunitionBox(500, -2000,60,50);
+//        box.onIterationBegin();
         try {
             new WormSoundPlayer().startSound();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
@@ -99,6 +110,7 @@ public class TimeController implements ActionListener {
 
     public KeyboardController getKeyboardController() {
         return keyboardController;
+
 
     }
 

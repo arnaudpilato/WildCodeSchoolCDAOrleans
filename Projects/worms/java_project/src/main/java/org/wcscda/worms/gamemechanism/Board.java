@@ -67,9 +67,11 @@ public abstract class Board extends JPanel {
         if (isGameFinished()) {
             Helper.getTC().setCurrentPhase(new EndOfGamePhase());
         }
+
         AbstractDrawableElement.getAllDrawable().forEach(AbstractDrawableElement::onIterationBegin);
 
         Helper.getTC().getKeyboardController().onIterationBegin();
+
         repaint();
         doMoves();
 

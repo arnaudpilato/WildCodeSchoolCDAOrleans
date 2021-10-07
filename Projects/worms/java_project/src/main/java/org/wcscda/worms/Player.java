@@ -82,8 +82,10 @@ public class Player {
       currentWeapon = new Hadoken();
     } else if (currentWeapon instanceof Hadoken) {
       currentWeapon = new Grenade();
-    } else if (currentWeapon instanceof Grenade)  {
-      currentWeapon = new SuperGrenade();
+    } else if ((currentWeapon instanceof Grenade) && (Helper.getActiveWorm().getAmmunitionSuperGrenade() == 1))  {
+       {
+        currentWeapon = new SuperGrenade();
+      }
     } else if (currentWeapon instanceof SuperGrenade) {
       currentWeapon = new GrenadeBanane();
     } else {
