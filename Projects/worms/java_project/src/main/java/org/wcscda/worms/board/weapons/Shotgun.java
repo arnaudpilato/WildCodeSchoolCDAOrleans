@@ -11,10 +11,11 @@ import org.wcscda.worms.gamemechanism.phases.*;
 public class Shotgun extends AbstractWeapon {
   private static final String imagePath = "src/resources/weapons/Shotgun_small.png";
   private static Image image = null;
-  private int nbFiredShoots = 0;
+  private static int nbFiredShoots = 0;
+
 
   private static void initImages() {
-    image = new ImageIcon(imagePath).getImage().getScaledInstance(50, 30, 0);
+    image = new ImageIcon(imagePath).getImage().getScaledInstance(50, 35, 0);
   }
 
   @Override
@@ -25,30 +26,33 @@ public class Shotgun extends AbstractWeapon {
 
     if (getAngle() > Math.PI / 2) {
       AffineTransform trans =
-          AffineTransform.getTranslateInstance(Helper.getWormX() + 100, Helper.getWormY());
+          AffineTransform.getTranslateInstance(Helper.getWormX() + 5, Helper.getWormY());
       trans.scale(-1, 1);
+
 
       g.drawImage(image, trans, io);
     } else {
-      g.drawImage(image, (int) Helper.getWormX(), (int) Helper.getWormY(), io);
+      g.drawImage(image, (int) Helper.getWormX() - 5, (int) Helper.getWormY(), io);
     }
   }
 
   public AbstractPhase getNextPhase() {
+    Helper.getActiveWorm().setAmmunition(Helper.getActiveWorm().getAmmunition() - 1 );
     nbFiredShoots++;
-
+    System.out.println(nbFiredShoots);
     return new MovingPhase();
   }
 
   public void triggerAmmoExplosion() {
+    System.out.println(nbFiredShoots);
     if (nbFiredShoots == 2) {
+      nbFiredShoots = 0 ;
       super.triggerAmmoExplosion();
+
     } else {
       Helper.getTC().setCurrentPhase(new WormMovingPhase());
     }
   }
 
-  public boolean isChangingWeaponDisabled() {
-    return nbFiredShoots != 0;
-  }
+
 }

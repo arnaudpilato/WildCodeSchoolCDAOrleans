@@ -2,16 +2,34 @@ package org.wcscda.worms;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
-import org.wcscda.worms.board.ARBEWithGravity;
-import org.wcscda.worms.board.AbstractBoardElement;
-import org.wcscda.worms.gamemechanism.Board;
 
-public class Worm extends ARBEWithGravity {
-  private static final String leftFacingResource = "src/resources/WormLF.png";
-  private static final String rightFacingResource = "src/resources/WormRF.png";
+import org.wcscda.worms.board.*;
+import org.wcscda.worms.gamemechanism.Board;
+import org.wcscda.worms.gamemechanism.StartGame;
+import org.wcscda.worms.gamemechanism.TimeController;
+import org.wcscda.worms.gamemechanism.WormSoundPlayer;
+
+
+public class Worm extends ARBEWithGravity implements IVisitable {
+  private static final String[] wormFacings = {
+          "src/resources/worm/worm-1.png",
+          "src/resources/worm/worm-2.png",
+          "src/resources/worm/worm-3.png",
+          "src/resources/worm/worm-4.png",
+          "src/resources/worm/worm-5.png",
+          "src/resources/worm/worm-6.png",
+          "src/resources/worm/worm-7.png",
+          "src/resources/worm/worm-8.png",
+          "src/resources/worm/worm-9.png"
+  };
+  public static boolean winner = false;
 
   public int getLife() {
     return life;
@@ -21,23 +39,35 @@ public class Worm extends ARBEWithGravity {
     this.life = life;
   }
 
-  private static final int imageHeight = 60;
-  private static final int imageWidth = 54;
+  private static final int imageHeight = 58;
+  private static final int imageWidth = 50;
   private static final int rectPadding = 15;
+  private int[] positionX = new int[Helper.getTC().getPlayers().size()];
+  private double[] positionY = new double[Helper.getTC().getPlayers().size()];
 
-  private static Image wormLF = null;
-  private static Image wormRF = null;
+  private static final Image[] wormImagesFacing = new Image[9];
   private int shownLife = 100;
   private int life = 100;
   private final String name;
   private final Player player;
   private boolean isUserMoving;
+  private int ammunition = 3 ;
+  private int ammunitionSuperGrenade = 0 ;
+
+  public int getAmmunition() {
+    return ammunition;
+  }
+
+  public void setAmmunition(int ammunition) {
+    this.ammunition = ammunition;
+  }
+
+  public static double numberOfDies = 0;
 
   private static void initImages() {
-    wormLF =
-        new ImageIcon(leftFacingResource).getImage().getScaledInstance(imageWidth, imageHeight, 0);
-    wormRF =
-        new ImageIcon(rightFacingResource).getImage().getScaledInstance(imageWidth, imageHeight, 0);
+      for (int i = 0; i < wormFacings.length; i++) {
+        wormImagesFacing[i] = new ImageIcon(wormFacings[i]).getImage().getScaledInstance(imageWidth, imageHeight, 0);
+      }
   }
 
   // NRO 2021-09-28 : Player is the Worm factory
@@ -63,14 +93,33 @@ public class Worm extends ARBEWithGravity {
 
   @Override
   protected void drawMain(Graphics2D g, ImageObserver io) {
-    if (wormLF == null) initImages();
-    Image worm = isRightFacing() ? wormRF : wormLF;
+    if (wormImagesFacing[0] == null) {
+      initImages();
+    }
 
-    g.drawImage(worm, getX() - rectPadding, getY() - rectPadding, io);
+    AffineTransform reverseWorm =
+            AffineTransform.getTranslateInstance(getX() + 35,getY() - rectPadding);
+    reverseWorm.scale(-1, 1);
+
+    if (winner == false) {
+      if ((isUserMoving) && (isRightFacing())) {
+        g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], getX() - rectPadding, getY() - rectPadding, io);
+      } else if (isRightFacing()) {
+        g.drawImage(wormImagesFacing[0], getX() - rectPadding, getY() - rectPadding, io);
+      }
+
+      if ((isUserMoving) && (!isRightFacing())){
+        g.drawImage(wormImagesFacing[(Helper.getClock()) % wormImagesFacing.length], reverseWorm, io);
+      } else if (!isRightFacing()) {
+        g.drawImage(wormImagesFacing[0], reverseWorm, io);
+      }
+    }
+
 
     // Drawing the life
     g.setColor(player.getColor());
-    g.drawString(name, (int) getX(), (int) getY() - 30);
+    g.drawString(getName(), (int) getX(), (int) getY() - 30);
+
     g.drawString("" + getShownLife(), (int) getX(), (int) getY() - 15);
   }
 
@@ -102,8 +151,24 @@ public class Worm extends ARBEWithGravity {
     this.isUserMoving = isUserMoving;
   }
 
+
+  public int getAmmunitionSuperGrenade() {
+    return ammunitionSuperGrenade;
+  }
+
+  public void setAmmunitionSuperGrenade(int ammunitionSuperGrenade) {
+    this.ammunitionSuperGrenade = ammunitionSuperGrenade;
+  }
+
   @Override
-  public void colideWith(AbstractBoardElement movable, Point2D prevPosition) {
+  public void collideWith(AbstractBoardElement movable, Point2D prevPosition) {
+
+    if (movable instanceof AmmunitionBox) {
+      AmmunitionBox box = (AmmunitionBox) movable;
+      this.setAmmunition(box.getAmmunitions());
+      this.setAmmunitionSuperGrenade(box.getAmmunitionsSuperGrenade());
+      box.removeSelf();
+    }
     setPosition(prevPosition);
   }
 
@@ -113,19 +178,43 @@ public class Worm extends ARBEWithGravity {
   }
 
   public String getName() {
+    if(name == null) return "null";
     return name;
   }
 
   @Override
   public void takeDamage(int damage) {
+    if(Helper.getActivePlayer().isBeginner()) {
+      damage = (int) (damage * 1.25);
+    }
+
     life -= damage;
+
+    try {
+      new WormSoundPlayer().screamSound();
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | InterruptedException e) {
+      e.printStackTrace();
+    }
+
     if (life <= 0) {
+      /*new Die(Helper.getWormX(), Helper.getWormY(), (int) numberOfDies);
+      this.numberOfDies += 1;*/
       die();
     }
   }
 
   public void die() {
-    player.getWorms().remove(this);
     removeSelf();
   }
+
+  @Override
+  protected void onRemoval() {
+    player.getWorms().remove(this);
+  }
+
+  @Override
+  public void accept(Point2D prevPosition, IMovableVisitor visitor) {
+    visitor.visit(this, prevPosition);
+  }
+
 }

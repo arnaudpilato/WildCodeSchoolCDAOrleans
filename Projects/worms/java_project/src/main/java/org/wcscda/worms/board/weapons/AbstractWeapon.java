@@ -21,8 +21,10 @@ public abstract class AbstractWeapon {
   }
 
   public void fire() {
-    Helper.getTC().setCurrentPhase(getNextPhase());
-    createNewAmmo(getAngle());
+
+      Helper.getTC().setCurrentPhase(getNextPhase());
+      createNewAmmo(getAngle());
+
   }
 
   /* NRO 2021-09-30 : by default, the weapons are looking

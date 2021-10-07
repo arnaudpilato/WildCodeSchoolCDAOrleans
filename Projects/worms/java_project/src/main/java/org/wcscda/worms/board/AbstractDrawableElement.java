@@ -2,8 +2,12 @@ package org.wcscda.worms.board;
 
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 import java.util.*;
 import org.wcscda.worms.Config;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 // NRO 2021-09-27 : Drawable elements are present visually
 //  but might not have physical presence (ie timer)
@@ -17,6 +21,7 @@ public abstract class AbstractDrawableElement implements Comparable<AbstractDraw
   }
 
   public static void processToBeRemovedAndAdded() {
+    toBeRemoved.forEach(AbstractDrawableElement::onRemoval);
     allDrawable.removeAll(toBeRemoved);
     allDrawable.addAll(toBeAdded);
     toBeRemoved.clear();
@@ -67,4 +72,10 @@ public abstract class AbstractDrawableElement implements Comparable<AbstractDraw
     }
     return id.compareTo(o.id);
   }
+
+  protected void onRemoval() {}
+
+  // NRO 2021-10-05 : Override if you want something to be
+  //  checked on iteration start
+  public void onIterationBegin() {}
 }
