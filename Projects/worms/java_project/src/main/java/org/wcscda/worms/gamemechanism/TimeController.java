@@ -33,23 +33,6 @@ public class TimeController implements ActionListener {
     private AbstractPhase currentPhase;
     private int phaseCount = 0;
     private boolean delayedSetNextWorm;
-    private boolean start = false;
-
-    /*public void setPlayerName(String[] playerName) {
-        this.playerName = playerName;
-    }
-
-    String[] playerName;
-
-    public void setWormsName(String[][] wormsName) {
-        this.wormsName = wormsName;
-    }
-
-    public void setActivePlayerIndex(int activePlayerIndex) {
-        this.activePlayerIndex = activePlayerIndex;
-    }
-
-    String[][] wormsName;*/
 
     public TimeController() {
         instance = this;
@@ -74,67 +57,7 @@ public class TimeController implements ActionListener {
         }
     }
 
-    public void initGame(String[]playerName, String[][] wormsName ) {
-
-
-
-//
-//        Map<String, String[]> teams = new HashMap<>();
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Saisissez le nombre de joueurs :");
-//        int numberOfTeams = scanner.nextInt();
-//        // Player[] players = new Player[numberOfTeams];
-//        System.out.println("Saisissez le nombre de Worms :");
-//        int numberOfWorms = scanner.nextInt();
-//        //Worm[] worms = new Worm[numberOfWorms];
-//        for (int i = 0; i < numberOfTeams; i++) {
-//            System.out.println("Choisissez le nom de la team du joueur " + (i + 1) + " :");
-//            String playerName = scanner.next();
-//            // players[i] = createPlayer(playerName, Color.BLUE);
-//            teams.put(playerName, new String[numberOfWorms]);
-//            for (int j = 0; j < numberOfWorms; j++) {
-//                System.out.println("Nom du joueur " + (j + 1) + " : ");
-//                teams.get(playerName)[j] = scanner.next();
-//                // worms[j] = players[i].createWorm(playerName);
-//            }
-//        }
-//
-//        Random random = new Random();
-//
-//        int j = 0;
-//        Player[] playerName = new Player[numberOfTeams];
-//        Worm[][] wormsName = new Worm[numberOfTeams][numberOfWorms];
-//
-//        for (Map.Entry<String, String[]> entry : teams.entrySet()) {
-//            float r = random.nextFloat();
-//            float g = random.nextFloat();
-//            float b = random.nextFloat();
-//
-//            Color randomColor = new Color(r, g, b);
-//
-//            String player = entry.getKey();
-//            String[] worms = entry.getValue();
-//
-//            playerName[j] = createPlayer(player, randomColor);
-//            for (int i = 0; i < worms.length; i++) {
-//                wormsName[j][i] = playerName[j].createWorm(worms[i]);
-//                board.wormInitialPlacement(wormsName[j][i]);
-//            }
-//            j++;
-//        }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void initGame(String[]playerName, String[][] wormsName, Boolean beginner) {
         Random random = new Random();
         Player[] player = new Player[playerName.length];
         Worm[][] worms = new Worm[playerName.length][wormsName[0].length];
@@ -147,27 +70,12 @@ public class TimeController implements ActionListener {
             Color randomColor = new Color(r, g, b);
 
             player[i] = createPlayer(playerName[i], randomColor);
+            player[0].setBeginner(beginner);
             for (int j = 0; j < wormsName[i].length; j++) {
                 worms[i][j] = player[i].createWorm(wormsName[i][j]);
                 board.wormInitialPlacement(worms[i][j]);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         doSetNextWorm();
         Score score = new Score();
@@ -185,10 +93,7 @@ public class TimeController implements ActionListener {
             e.printStackTrace();
         }
 
-
-
-
-
+        postInitGame();
     }
 
 
