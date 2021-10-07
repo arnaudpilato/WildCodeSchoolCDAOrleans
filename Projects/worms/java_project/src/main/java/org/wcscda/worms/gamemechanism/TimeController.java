@@ -39,6 +39,8 @@ public class TimeController implements ActionListener {
         instance = this;
         initGame();
         keyboardController = createController();
+
+        void po
         board.addKeyListener(keyboardController);
 
         timer = new Timer(Config.getClockDelay(), this);
@@ -67,7 +69,7 @@ public class TimeController implements ActionListener {
 
 
         board = new PhysicalController();
-        StartGame initialize = new StartGame();
+        StartGame initialize = new StartGame(this);
 
 //
 //        Map<String, String[]> teams = new HashMap<>();

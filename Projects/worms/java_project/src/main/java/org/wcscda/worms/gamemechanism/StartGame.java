@@ -17,13 +17,12 @@ public class StartGame extends AbstractDrawableElement {
     private boolean teamAndWormsMenu = false;
     private boolean nameOfWormsMenu = false;
 
-    private TimeController initialize = new TimeController();
+    private TimeController initialize;
 
     private int numberOfTeams = 1;
     private int numberOfWorms = 1;
 
     private final String[] players = new String[numberOfTeams];
-
     private final String[][] worms = new String[numberOfTeams][numberOfWorms + 1];
 
     private final Icon iconValidate = new ImageIcon("src/resources/validate.png");
@@ -85,7 +84,8 @@ public class StartGame extends AbstractDrawableElement {
         }
     }
 
-    public StartGame() {
+    public StartGame(TimeController tc) {
+        this.initialize = tc;
         JButton start = new JButton("Start Game");
         JPanel pnlButton = new JPanel();
         Helper.getPC().setLayout(null);
@@ -265,6 +265,7 @@ public class StartGame extends AbstractDrawableElement {
         pnlButton.add(validate);
         Helper.getPC().add(validate);
 
+        // Nom de la team 1
         JTextArea setNameOfPlayer1 = new JTextArea("BROCOLI");
         setNameOfPlayer1.setSize(300, 40);
         setNameOfPlayer1.setFont(new Font("Roboto", Font.BOLD, 20));
@@ -274,13 +275,14 @@ public class StartGame extends AbstractDrawableElement {
         Helper.getPC().add(setNameOfPlayer1);
         players[0] = setNameOfPlayer1.getText();
 
-
+        //Nom du ver 1
         JTextArea nameOfWorm1 = new JTextArea("Michel");
         nameOfWorm1.setSize(300, 40);
         nameOfWorm1.setLocation(500, 300);
         worms[0][0] = nameOfWorm1.getText();
         Helper.getPC().add(nameOfWorm1);
 
+        // Nom de ver 2
         if (numberOfWorms == 2) {
             JTextArea nameOfWorm2 = new JTextArea("Roger");
             nameOfWorm2.setSize(200, 40);
@@ -289,6 +291,7 @@ public class StartGame extends AbstractDrawableElement {
             Helper.getPC().add(nameOfWorm2);
         }
 
+        // Nom de ver 2
         if (numberOfWorms == 3) {
             JTextArea nameOfWorm3 = new JTextArea("Denis");
             nameOfWorm3.setSize(200, 40);
@@ -297,6 +300,7 @@ public class StartGame extends AbstractDrawableElement {
             Helper.getPC().add(nameOfWorm3);
         }
 
+        // Nom de
         if (numberOfWorms == 4) {
             JTextArea nameOfWorm4 = new JTextArea("Bernard");
             nameOfWorm4.setSize(200, 40);
