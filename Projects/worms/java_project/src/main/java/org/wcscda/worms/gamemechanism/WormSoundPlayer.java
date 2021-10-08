@@ -181,7 +181,7 @@ public class WormSoundPlayer {
     clip.start();
     //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
     //clip.close();
-  };
+  }
 
   public static WormSoundPlayer getWormSoundPlayer() {
     if (instance == null) {
