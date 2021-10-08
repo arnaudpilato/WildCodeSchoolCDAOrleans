@@ -166,9 +166,9 @@ public class WormSoundPlayer {
   public void themeSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
     AudioInputStream audioInputStream =
             AudioSystem.getAudioInputStream(new File("src/resources/sounds/theme.wav").getAbsoluteFile());
-    Clip clip = AudioSystem.getClip();
-    clip.open(audioInputStream);
-    clip.start();
+    Clip themeSoundClip = AudioSystem.getClip();
+    themeSoundClip.open(audioInputStream);
+    themeSoundClip.start();
     //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
     //clip.close();
   }
@@ -181,7 +181,7 @@ public class WormSoundPlayer {
     clip.start();
     //Thread.sleep(clip.getMicrosecondLength() / 1000 + 1);
     //clip.close();
-  }
+  };
 
   public static WormSoundPlayer getWormSoundPlayer() {
     if (instance == null) {
