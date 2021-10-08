@@ -55,7 +55,9 @@ public abstract class Board extends JPanel {
                 nbLooser++;
                 if (nbLooser == Helper.getTC().getPlayers().size() - 1) {
                     String fontName = "Microsoft YaHei";
-                    g.drawString(" l'équipe " + Helper.getActivePlayer().getName() + " à gagné la partie ", 500, 100);
+                    g.scale(2,2);
+                    g.setColor(Color.GREEN);
+                    g.drawString(" L'EQUIPE " + Helper.getActivePlayer().getName() + " A GAGNE LA PARTIE ", 150, 100);
                 }
             }
         }
