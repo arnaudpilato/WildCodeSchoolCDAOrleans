@@ -71,6 +71,8 @@ public class StartGame extends AbstractDrawableElement {
         return beginner;
     }
 
+    private WormSoundPlayer theme = new WormSoundPlayer();
+
     private static void initImages() {
         image = new ImageIcon(imagePath1).getImage().getScaledInstance(1200, 800, 0);
         imageBackground = new ImageIcon(imagePath2).getImage().getScaledInstance(800, 500, 0);

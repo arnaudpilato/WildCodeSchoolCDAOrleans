@@ -42,6 +42,7 @@ public class ItemPhase extends AbstractPhase{
     private int positionY = 0;
 
     private Player weapon = Helper.getActivePlayer();
+    private int superGrenade = Helper.getActiveWorm().getAmmunitionSuperGrenade();
     private int life = Helper.getActiveWorm().getLife();
 
     private static void initImages() {
@@ -160,10 +161,12 @@ public class ItemPhase extends AbstractPhase{
 
         g.drawImage(bananaWhite, (int) Helper.getWormX() + 35, (int) Helper.getWormY() - 150, io);
         g.drawImage(bulletGreen, (int) Helper.getWormX() + 35, (int) Helper.getWormY() - 100, io);
-        g.drawString("1", (int) Helper.getWormX() + 68, (int)Helper.getWormY() -90);
+        g.drawString(superGrenade + "", (int) Helper.getWormX() + 68, (int)Helper.getWormY() -90);
         if (positionX == 2 && positionY == 1) {
             g.drawImage(selector, (int) Helper.getWormX() + 30, (int) Helper.getWormY() - 155, io);
-            weapon.setCurrentWeapon(new GrenadeBanane());
+            if (superGrenade > 0) {
+                weapon.setCurrentWeapon(new GrenadeBanane());
+            }
         }
     }
 }
