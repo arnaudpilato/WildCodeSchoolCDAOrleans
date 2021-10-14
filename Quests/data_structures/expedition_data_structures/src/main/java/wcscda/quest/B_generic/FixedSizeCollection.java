@@ -3,7 +3,10 @@ package wcscda.quest.B_generic;
 import wcscda.quest.Sentinel;
 
 import java.lang.reflect.Array;
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+>>>>>>> 246f7321dd240ede60abce8b892d82ca9d827a80
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
