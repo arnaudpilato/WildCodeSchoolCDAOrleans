@@ -7,7 +7,9 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 
-
+/* NRO 2021-10-14 : il aurait été pertinent de faire une classe
+   commune ou un héritage pour les classes Grenade et GrenadeBanane
+*/
 public class GrenadeBanane extends AbstractWeapon {
     private static final String imagePath = "src/resources/grenade-banane/banane-5.png";
     private static Image image = null;

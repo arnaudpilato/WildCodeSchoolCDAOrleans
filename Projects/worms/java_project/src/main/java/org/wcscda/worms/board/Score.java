@@ -13,6 +13,8 @@ public class Score extends AbstractDrawableElement {
         this.players = players;
     }
 
+    // NRO 2021-10-14 : Nice job !!
+    // Il n'y a pas vraiment de moyen de raccourcir cela
     @Override
     protected void drawMain(Graphics2D g, ImageObserver io) {
         int x = 20;

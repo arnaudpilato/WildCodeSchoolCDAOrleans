@@ -120,6 +120,9 @@ public class StartGame extends AbstractDrawableElement {
         });
     }
 
+    // NRO 2021-10-14 : Golden Rule : pas de méthode de plus de
+    // 25 lignes. En plus avec intelliJ, le extractMethod fait tout
+    // le boulot pour toi
     public void menu() {
         JPanel pnlButton = new JPanel();
         Helper.getPC().setLayout(null);

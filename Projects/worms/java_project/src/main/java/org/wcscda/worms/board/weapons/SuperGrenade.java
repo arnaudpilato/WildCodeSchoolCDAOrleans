@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 
-
+// NRO 2021-10-14 : il aurait été possible de mutualiser le code
+// avec les deux autres grenades
 public class SuperGrenade extends AbstractWeapon {
     private static final String imagePath = "src/resources/weapons/super-grenade-R.png";
     private static Image image = null;

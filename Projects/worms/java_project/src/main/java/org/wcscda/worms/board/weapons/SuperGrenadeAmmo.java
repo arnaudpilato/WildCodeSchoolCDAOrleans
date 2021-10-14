@@ -22,6 +22,7 @@ public class SuperGrenadeAmmo extends AbstractAmmo {
     private final double initialY;
     private static final Image[] superGrenade = new Image[16];
     private final int timer = Helper.getClock();
+    // NRO 2021-10-14 : idem que Explosion.java
     private static final String[] imagePath = {
             "src/resources/super-grenade/grenade-1.png",
             "src/resources/super-grenade/grenade-2.png",

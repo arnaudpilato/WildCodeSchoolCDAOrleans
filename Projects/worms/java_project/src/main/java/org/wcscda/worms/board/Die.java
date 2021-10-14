@@ -35,6 +35,10 @@ public class Die extends AbstractDrawableElement {
         for (int i = 0; i < iterator; i++) {
             g.drawImage(image, (int) positionX[i], (int) positionY[i], io);
         }
+        /* NRO 2021-10-14 : removeSelf inconditionnel ? Du coup l'objet
+           n'est dessiné que sur une itération (soit 50ms)
+           Ce n'est probablement pas le comportement attendu
+         */
         removeSelf();
 
     }

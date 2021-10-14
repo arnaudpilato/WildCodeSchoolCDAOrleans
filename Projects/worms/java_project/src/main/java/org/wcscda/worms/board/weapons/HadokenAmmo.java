@@ -18,6 +18,7 @@ public class HadokenAmmo extends AbstractAmmo {
   private static final int EXPLOSION_RADIUS = 30;
   private static final int EXPLOSION_DAMAGE = 15;
   private static final int INITIAL_SPEED = 6;
+  // NRO 2021-10-14 :idem que Explosion.java
   private static final String[] imagePath = {
           "src/resources/hadoken/hadoken-1.png",
           "src/resources/hadoken/hadoken-2.png",

@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 
+// NRO 2021-10-14 : le rendu est superbe, dommage d'avoir
+//  tout fait avec des copier-coller ...
 public class ItemPhase extends AbstractPhase{
     private static final String imagePath1 = "src/resources/items/arrow.png";
     private static final String imagePath2 = "src/resources/items/border.png";

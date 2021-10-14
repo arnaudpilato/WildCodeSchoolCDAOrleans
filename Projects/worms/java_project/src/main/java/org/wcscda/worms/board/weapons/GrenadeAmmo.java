@@ -24,6 +24,8 @@ public class GrenadeAmmo extends AbstractAmmo {
     private final double initialX;
     private final double initialY;
     private static final Image[] grenade = new Image[16];
+
+    // NRO 2021-10-14 : voir la même remarque dans Explosion.java
     private static final String[] imagePath = {
             "src/resources/grenade/grenade-1.png",
             "src/resources/grenade/grenade-2.png",

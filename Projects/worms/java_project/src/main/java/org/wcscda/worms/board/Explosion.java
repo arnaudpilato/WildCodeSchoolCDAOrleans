@@ -20,6 +20,14 @@ public class Explosion extends AbstractDrawableElement {
   private final double centerY;
   private final double radius;
   private final int createdPhase;
+
+  /* NRO 2021-10-14 : Ca pique ...
+     final int NB_GRENADE_IMAGE = 23;
+     String[] imageGrenadePath = new String[NB_GRENADE_IMAGE];
+     for(int i = 0; i < NB_GRENADE_IMAGE; ++i) {
+       imageGrenadePath[i] = "src/resources/explosion/explosion-" + i + ".png";
+   }
+  */
   private static final String[] imageGrenadePath = {
           "src/resources/explosion/explosion-1.png",
           "src/resources/explosion/explosion-2.png",
@@ -46,6 +54,7 @@ public class Explosion extends AbstractDrawableElement {
           "src/resources/explosion/explosion-23.png"
   };
 
+  // NRO 2021-10-14 : idem (en pire, vu qu'il y a plus de lignes)
   private static final String[] imageSuperGrenadePath = {
           "src/resources/super-explosion/big-explosion-1.png",
           "src/resources/super-explosion/big-explosion-2.png",

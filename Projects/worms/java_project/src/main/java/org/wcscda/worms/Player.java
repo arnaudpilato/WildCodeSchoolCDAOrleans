@@ -14,6 +14,7 @@ public class Player {
     return beginner;
   }
 
+  // NRO 2021-10-11 : Penser à grouper les attributs en haut du fichier !
   private boolean beginner = false;
 
   public void setBeginner(boolean beginner) {
@@ -24,6 +25,7 @@ public class Player {
     this.currentWeapon = currentWeapon;
   }
 
+  // NRO 2021-10-11 : Penser à grouper les attributs en haut du fichier !
   private AbstractWeapon currentWeapon;
   private int currentWormIndex = 0;
 

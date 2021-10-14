@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import java.util.Random;
 
+// NRO 2021-10-14 : Nice job !!
 public class AmmunitionBox extends ARBEWithGravity {
     private static final String imagePath = "src/resources/parachuteBox.png";
     private static final String imagePath2 = "src/resources/ammunitionBox.png";
@@ -62,6 +63,8 @@ public class AmmunitionBox extends ARBEWithGravity {
     public void collideWith(AbstractBoardElement movable, Point2D prevPosition) {
 
     }
+
+    // NRO 2021-10-14 : pensez à appeler RandomGenerator pour la reproductibilité
     public static int random_int(int Min, int Max)
     {
         return (int) (Math.random()*(Max-Min))+Min;

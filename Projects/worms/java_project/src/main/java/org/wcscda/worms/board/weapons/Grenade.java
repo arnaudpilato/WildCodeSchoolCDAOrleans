@@ -20,6 +20,8 @@ public class Grenade extends AbstractWeapon {
 
     @Override
     public void draw(Graphics2D g, ImageObserver io) {
+        // NRO 2021-10-14 : IntelliJ signale que ce code est dupliqué
+        //  dans SuperGrenade
         if (image == null) {
             initImages();
         }

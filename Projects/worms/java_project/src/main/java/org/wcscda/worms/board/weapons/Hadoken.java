@@ -18,6 +18,7 @@ public class Hadoken extends AbstractWeapon {
   private static final int hadokenRadius = 50;
   private static final Image[] halo = new Image[10];
   private final int timer = Helper.getClock();
+  // NRO 2021-10-14 : idem que Explosion.java
   private static final String[] imagePath = {
           "src/resources/halo/halo-1.png",
           "src/resources/halo/halo-2.png",
