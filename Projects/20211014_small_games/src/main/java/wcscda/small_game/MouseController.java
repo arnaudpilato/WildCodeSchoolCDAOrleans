@@ -48,6 +48,19 @@ public class MouseController extends MouseAdapter {
                 boolean player1 = true;
 
                 if (mouseEvent.getX() < 530) {
+
+                    int newPositionY = 0;
+                    for (int i = 0; i < 2; i++) {
+                        if (mouseEvent.getY() < 330 && grid[i][0] == 0) {
+                            positionX.add(460);
+                            positionY.add(260 + newPositionY);
+                        }
+
+                        newPositionY += 140;
+                    }
+
+
+
                     if (mouseEvent.getY() < 330 && grid[0][0] == 0) {
                         positionX.add(460);
                         positionY.add(260);
